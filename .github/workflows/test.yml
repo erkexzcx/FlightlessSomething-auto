@@ -4,15 +4,36 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  pre-benchmark:
     runs-on: [self-hosted, Linux, X64, steam-deck]
-    env:
-      YDOTOOL_SOCKET: /run/user/1000/.ydotool_socket
     steps:
+      - name: Check if Cyberpunk 2077 is not running
+        run: pgrep -f 'Cyberpunk2077.exe' > /dev/null
+
       - name: Ensure ydotool socket is accessible
         run: |
           sudo chmod +x /run/user/1000
           sudo chmod 777 /run/user/1000/.ydotool_socket
-      
-      - name: Run ydotool command
+
+      - name: Unfreeze the game
+        run: kill -CONT $(pgrep -f 'Cyberpunk2077.exe')
+
+  benchmark:
+    runs-on: [self-hosted, Linux, X64, steam-deck]
+    env:
+      YDOTOOL_SOCKET: /run/user/1000/.ydotool_socket
+    steps:
+      - name: Check if Cyberpunk 2077 is not running
+        run: pgrep -f 'Cyberpunk2077.exe' > /dev/null
+
+      - name: Test ydotool command
         run: ydotool mousemove 2500 0
+
+  post-benchmark:
+    runs-on: [self-hosted, Linux, X64, steam-deck]
+    steps:
+      - name: Error if Cyberpunk 2077 is not running
+        run: pgrep -f 'Cyberpunk2077.exe' > /dev/null
+
+      - name: Freeze the game
+        run: kill -STOP $(pgrep -f 'Cyberpunk2077.exe')
