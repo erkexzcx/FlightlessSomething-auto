@@ -16,7 +16,7 @@ jobs:
           sudo chmod 777 /run/user/1000/.ydotool_socket
 
       - name: Unfreeze the game
-        run: kill -CONT $(pgrep -f 'Cyberpunk2077.exe')
+        run: sudo kill -CONT $(pgrep -f 'Cyberpunk2077.exe')
 
   benchmark:
     needs: pre-benchmark
@@ -38,4 +38,4 @@ jobs:
         run: pgrep -f 'Cyberpunk2077.exe' > /dev/null
 
       - name: Freeze the game
-        run: kill -STOP $(pgrep -f 'Cyberpunk2077.exe')
+        run: sudo kill -STOP $(pgrep -f 'Cyberpunk2077.exe')
