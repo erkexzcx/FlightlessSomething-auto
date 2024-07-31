@@ -9,8 +9,10 @@ jobs:
     env:
       YDOTOOL_SOCKET: /run/user/1000/.ydotool_socket
     steps:
-      - name: Setup ydotool socket
-        run: sudo chmod 777 $YDOTOOL_SOCKET
+      - name: Ensure ydotool socket is accessible
+        run: |
+          sudo chmod +x /run/user/1000
+          sudo chmod 777 /run/user/1000/.ydotool_socket
       
       - name: Run ydotool command
         run: ydotool mousemove 2500 0
