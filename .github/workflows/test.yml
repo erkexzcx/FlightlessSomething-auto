@@ -1,0 +1,16 @@
+name: Do ydotool test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: [self-hosted, Linux, X64, steam-deck]
+    env:
+      YDOTOOL_SOCKET: /run/user/1000/.ydotool_socket
+    steps:
+      - name: Setup ydotool socket
+        run: sudo chmod 777 $YDOTOOL_SOCKET
+      
+      - name: Run ydotool command
+        run: ydotool mousemove 2500 0
