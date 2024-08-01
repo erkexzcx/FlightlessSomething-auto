@@ -2,6 +2,15 @@ name: Benchmark CP2077
 
 on:
   workflow_dispatch:
+    inputs:
+      benchmark_file:
+        description: 'Select benchmark definition file'
+        required: true
+        default: 'idle.yml'
+        type: choice
+        options:
+          - idle.yml
+          - busy.yml
 
 jobs:
   benchmark:
@@ -24,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and run benchmark
-        run: chmod +x benchmark.sh && ./benchmark.sh benchmarks/idle.yml
+        run: chmod +x benchmark.sh && ./benchmark.sh benchmarks/${{ github.event.inputs.benchmark_file }}
 
       - name: Show recorded benchmark files
         run: |
