@@ -6,7 +6,7 @@
 #     cmd: cargo build --release     <- cargo build command
 #   runs:                            <- you can specify multiple runs, using different CMDs (e.g. with and without scheduler args)
 #     - filename: lavd-defaults.csv  <- CSV filename that will be shown in FlightlessSomething
-#       cmd: release/scx_lavd        <- Scheduler command to run (relative, target dir will be appended automatically)
+#       cmd: release/scx_lavd        <- Scheduler command to run (relative, target dir will be appended automatically). OPTIONAL - don't specify, so will not use (uses BORE)
 
 - branch: main
   build:
@@ -17,7 +17,7 @@
       cmd: release/scx_bpfland
     - filename: bpfland-c0-t0-k.csv
       cmd: release/scx_bpfland -c 0 -t 0 -k
-    # Test BORE this way (yes, don't specify "cmd" here and scheduler will not be used = BORE)
+    # Test BORE this way (yes, don't specify "cmd" and scheduler will not be used = BORE)
     - filename: BORE.csv
 
 - branch: main
