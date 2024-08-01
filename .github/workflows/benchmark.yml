@@ -11,6 +11,7 @@ on:
         options:
           - idle.yml
           - busy.yml
+          - arighi.yml
 
 jobs:
   benchmark:

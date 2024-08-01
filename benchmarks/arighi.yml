@@ -1,0 +1,25 @@
+# Sir, this is your playground xD
+
+- branch: main
+  build:
+    dir: scheds/rust/scx_bpfland/
+    cmd: cargo build --release
+  runs:
+    - filename: bpfland-defaults.csv
+      scheduler: release/scx_bpfland
+
+- branch: main
+  build:
+    dir: scheds/rust/scx_lavd/
+    cmd: cargo build --release
+  runs:
+    - filename: lavd-defaults.csv
+      scheduler: release/scx_lavd
+
+- branch: asdf
+  build:
+    dir: scheds/rust/scx_asdf/
+    cmd: cargo build --release
+  runs:
+    - filename: asdf-defaults.csv
+      scheduler: release/scx_asdf
