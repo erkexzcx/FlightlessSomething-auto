@@ -47,7 +47,7 @@ jobs:
 
       - name: Upload benchmark
         run: |
-          chmod +x upload.sh && sudo upload.sh ${{ secrets.MYSESSION }}
+          chmod +x upload.sh && sudo ./upload.sh ${{ secrets.MYSESSION }}
 
 ###########################################################################
 
