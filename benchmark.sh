@@ -58,7 +58,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         ######################################################
         # Record benchmark data
-        sudo kill -CONT $(pgrep -f 'Cyberpunk2077.exe')
+        sudo kill -CONT $(pgrep -f 'Cyberpunk2077.exe') # Resume the game
         sleep 1
 
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Start recording
