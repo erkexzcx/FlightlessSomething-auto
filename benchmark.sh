@@ -38,7 +38,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     git fetch origin
 
     # Checkout the branch
-    git reset --hard "$branch"
+    git reset --hard "origin/$branch"
 
     # Enter the build directory
     cd "$build_dir"
