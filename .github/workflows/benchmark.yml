@@ -39,7 +39,7 @@ jobs:
 
           # Show what is recorded
           sudo rm -f /home/deck/mangohud_logs/*summary.csv
-          sudo ls -l /home/deck/mangohud_logs/*.csv
+          sudo ls -l /home/deck/mangohud_logs/
 
 ###########################################################################
 
