@@ -27,7 +27,7 @@ export CARGO_TARGET_DIR=/tmp/scx_cargo_build_target
 mkdir -p "$CARGO_TARGET_DIR"
 
 # Device could "sleep", so wake it up
-do echo mousemove 1000 0
+echo mousemove 1000 0 | dotoolc
 sleep 5
 
 # Read the benchmark.yml file and process each entry
