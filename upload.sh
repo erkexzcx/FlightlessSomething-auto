@@ -48,8 +48,8 @@ done
 response=$("${curl_command[@]}")
 
 # Check if the response contains a 303 status code and a Location header
-if echo "$response" | grep -q "HTTP/1.1 303 See Other" && echo "$response" | grep -q "Location:"; then
-  location=$(echo "$response" | grep "Location:" | awk '{print $2}' | tr -d '\r')
+if echo "$response" | grep -q "303 See Other" && echo "$response" | grep -q "location:"; then
+  location=$(echo "$response" | grep "location:" | awk '{print $2}' | tr -d '\r')
   echo "Success! Redirected to: $BASE_URL$location"
 else
   echo "Error: The request did not return a 303 status code or a Location header."
