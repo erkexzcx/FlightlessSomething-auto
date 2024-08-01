@@ -13,7 +13,6 @@ JOBURL=$2
 # Some hardcoded variables
 DIRECTORY="/tmp/mangohud_logs"
 BASE_URL="https://flightlesssomething-auto.duckdns.org"
-REPO_URL="https://github.com/erkexzcx/FlightlessSomething-auto"
 
 # Check if the directory exists
 if [ ! -d "$DIRECTORY" ]; then
