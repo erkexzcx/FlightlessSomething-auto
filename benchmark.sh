@@ -26,6 +26,10 @@ git clone https://github.com/sched-ext/scx.git /tmp/scx || true
 export CARGO_TARGET_DIR=/tmp/scx_cargo_build_target
 mkdir -p "$CARGO_TARGET_DIR"
 
+# Device could "sleep", so wake it up
+do echo mousemove 1000 0
+sleep 5
+
 # Read the benchmark.yml file and process each entry
 yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Extract branch, build directory, and build command
