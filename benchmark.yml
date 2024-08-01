@@ -17,6 +17,8 @@
       cmd: release/scx_bpfland
     - filename: bpfland-c0-t0-k.csv
       cmd: release/scx_bpfland -c 0 -t 0 -k
+    # Test BORE this way (yes, don't specify "cmd" here and scheduler will not be used = BORE)
+    - filename: BORE.csv
 
 - branch: main
   build:
