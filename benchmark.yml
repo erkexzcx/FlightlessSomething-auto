@@ -13,5 +13,5 @@
     dir: scheds/rust/scx_asdf/
     cmd: cargo build --release
   runs:
-    - filename: asdf-main-defaults.csv
+    - filename: asdf-defaults.csv
       cmd: scheds/rust/scx_asdf/target/release/scx_asdf
