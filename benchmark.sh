@@ -53,10 +53,9 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         run_filename=$(echo "$run" | yq -r '.filename')
         run_cmd=$(echo "$run" | yq -r '.cmd')
 
+        # Execute scheduler in the background
         if [ -n "$run_cmd" ]; then
-            # Execute scheduler in the background
             eval "sudo $CARGO_TARGET_DIR/$run_cmd" &
-            scheduler_pid=$!
         fi
 
         ######################################################
@@ -76,9 +75,9 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         mv /tmp/mangohud_logs/Cyberpunk2077_*.csv /tmp/mangohud_logs/$run_filename
         ######################################################
 
+        # Kill the scheduler that was running in the background
         if [ -n "$run_cmd" ]; then
-            # Kill the background scheduler processes
-            sudo kill $scheduler_pid || true
+            sudo pkill -f "$run_cmd" || true
         fi
     done
 done
