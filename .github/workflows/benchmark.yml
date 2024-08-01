@@ -32,4 +32,6 @@ jobs:
           ls -l /tmp/mangohud_logs/*
 
       - name: Upload benchmark to FlightlessSomething auto
-        run: chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }}
+        run: |
+          JOBURL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs/${GITHUB_JOB}"
+          chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }} $JOBURL

@@ -16,6 +16,14 @@
     - filename: lavd-defaults.csv
       cmd: scheds/rust/scx_lavd/target/release/scx_lavd
 
+- branch: main
+  build:
+    dir: scheds/rust/scx_rusty/
+    cmd: cargo build --release
+  runs:
+    - filename: rusty-defaults.csv
+      cmd: scheds/rust/scx_rusty/target/release/scx_rusty
+
 - branch: asdf
   build:
     dir: scheds/rust/scx_asdf/

@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # Check if the correct number of arguments is provided
-if [ "$#" -ne 1 ]; then
-  echo "Usage: $0 <mysession_value>"
+if [ "$#" -ne 2 ]; then
+  echo "Usage: $0 <mysession_value> <runjob_url>"
   exit 1
 fi
 
 # Assign argument to variable
 MYSESSION=$1
+JOBURL=$2
 
 # Some hardcoded variables
 DIRECTORY="/tmp/mangohud_logs"
@@ -28,15 +29,15 @@ if [ ! -e "${csv_files[0]}" ]; then
 fi
 
 # Generate a Unix timestamp
-TIMESTAMP=$(date +%s)
+TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
 # Start constructing the curl command
 curl_command=(
   curl -i "$BASE_URL/benchmark"
   -X POST
   -H "Cookie: mysession=$MYSESSION"
-  -F "title=Automated benchmark at $TIMESTAMP"
-  -F "description=Automated benchmark at $TIMESTAMP. See $REPO_URL"
+  -F "title=Automated CP2077 benchmark at $TIMESTAMP"
+  -F "description=Automated Cyberpunk 2077 benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL"
 )
 
 # Loop over all CSV files in the specified directory
