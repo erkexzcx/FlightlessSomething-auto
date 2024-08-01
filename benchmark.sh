@@ -68,7 +68,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sleep 1
 
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Start recording
-        for i in {1..300}; do echo mousemove 1000 0 | dotoolc; sleep 0.1; done        # Move mouse (camera) to the right, by 1000px
+        for i in {1..1200}; do echo mousemove 1000 0 | dotoolc; sleep 0.1; done       # Snap mouse to the right, by 1000px, for 120 seconds
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
 
         sleep 1
