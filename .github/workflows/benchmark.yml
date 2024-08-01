@@ -20,7 +20,8 @@ jobs:
 
       - name: Ensure /tmp/mangohud_logs exist
         run: |
-          mkdir -p /tmp/mangohud_logs
+          sudo mkdir -p /tmp/mangohud_logs
+          sudo chmod 777 /tmp/mangohud_logs
 
       - name: Checkout
         uses: actions/checkout@v4
