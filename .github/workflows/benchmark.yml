@@ -17,15 +17,11 @@ jobs:
       - name: Ensure dotool pipe has needed permissions
         run: sudo chown $USER /tmp/dotool-pipe
 
-      - name: Ensure /tmp/mangohud_logs exist
+      - name: Ensure /tmp/mangohud_logs exist and is empty
         run: |
+          sudo rm -rf /tmp/mangohud_logs
           sudo mkdir -p /tmp/mangohud_logs
           sudo chmod -R 777 /tmp/mangohud_logs/
-
-      - name: Cleanup from previous jobs
-        run: |
-          sudo chmod 777 /tmp/mangohud_logs/*
-          rm -f /tmp/mangohud_logs/*
 
     ###########################################################################
 
