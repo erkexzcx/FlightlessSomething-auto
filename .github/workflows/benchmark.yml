@@ -15,8 +15,7 @@ jobs:
         run: sudo kill -CONT $(pgrep -f 'Cyberpunk2077.exe')
 
       - name: Ensure dotool pipe has needed permissions
-        run: |
-          sudo chown $USER /tmp/dotool-pipe
+        run: sudo chown $USER /tmp/dotool-pipe
 
       - name: Ensure /tmp/mangohud_logs exist
         run: |
@@ -34,8 +33,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and run benchmark
-        uses: |
-          chmod +x benchmark.sh && ./benchmark.sh benchmark.yml
+        run: chmod +x benchmark.sh && ./benchmark.sh benchmark.yml
 
       - name: Show recorded benchmark files
         run: |
@@ -43,8 +41,7 @@ jobs:
           ls -l /tmp/mangohud_logs/*
 
       - name: Upload benchmark to FlightlessSomething auto
-        run: |
-          chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }}
+        run: chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }}
 
     ###########################################################################
 
