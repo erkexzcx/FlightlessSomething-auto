@@ -4,9 +4,9 @@
     cmd: cargo build --release
   runs:
     - filename: bpfland-defaults.csv
-      cmd: scheds/rust/scx_bpfland/target/release/scx_bpfland
+      cmd: release/scx_bpfland
     - filename: bpfland-c0-t0-k.csv
-      cmd: scheds/rust/scx_bpfland/target/release/scx_bpfland -c 0 -t 0 -k
+      cmd: release/scx_bpfland -c 0 -t 0 -k
 
 - branch: main
   build:
@@ -14,7 +14,7 @@
     cmd: cargo build --release
   runs:
     - filename: lavd-defaults.csv
-      cmd: scheds/rust/scx_lavd/target/release/scx_lavd
+      cmd: release/scx_lavd
 
 - branch: main
   build:
@@ -22,7 +22,7 @@
     cmd: cargo build --release
   runs:
     - filename: rusty-defaults.csv
-      cmd: scheds/rust/scx_rusty/target/release/scx_rusty
+      cmd: release/scx_rusty
 
 - branch: asdf
   build:
@@ -30,4 +30,4 @@
     cmd: cargo build --release
   runs:
     - filename: asdf-defaults.csv
-      cmd: scheds/rust/scx_asdf/target/release/scx_asdf
+      cmd: release/scx_asdf

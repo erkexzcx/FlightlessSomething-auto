@@ -20,6 +20,10 @@ fi
 # Clone the repository
 git clone https://github.com/sched-ext/scx.git /tmp/scx || true
 
+# Create scx build target dir
+export CARGO_TARGET_DIR=/tmp/scx_cargo_build_target
+mkdir -p "$CARGO_TARGET_DIR"
+
 # Read the benchmark.yml file and process each entry
 yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Extract branch, build directory, and build command
@@ -48,7 +52,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         run_cmd=$(echo "$run" | yq -r '.cmd')
 
         # Execute scheduler in the background
-        eval "sudo /tmp/scx/$run_cmd" &
+        eval "sudo $CARGO_TARGET_DIR/$run_cmd" &
 
         ######################################################
         # Record benchmark data
