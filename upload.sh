@@ -10,7 +10,7 @@ fi
 MYSESSION=$1
 
 # Some hardcoded variables
-DIRECTORY="/home/deck/mangohud_logs"
+DIRECTORY="/tmp/mangohud_logs"
 BASE_URL="https://flightlesssomething-auto.duckdns.org"
 REPO_URL="https://github.com/erkexzcx/FlightlessSomething-auto"
 

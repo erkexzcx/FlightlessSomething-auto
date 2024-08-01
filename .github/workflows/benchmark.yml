@@ -25,7 +25,7 @@ jobs:
 
       - name: Cleanup from previous run
         run: |
-          sudo rm -f /home/deck/mangohud_logs/*
+          sudo rm -f /tmp/mangohud_logs/*
 
       - name: Record benchmark
         run: |
@@ -39,16 +39,16 @@ jobs:
           echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
 
           # Wait for things to settle down
-          sleep 1
+          sleep 0.5
 
       - name: Show recorded benchmark files
         run: |
-          sudo rm -f /home/deck/mangohud_logs/*summary.csv
-          sudo mv /home/deck/mangohud_logs/*.csv /home/deck/mangohud_logs/benchmark.csv
+          sudo rm -f /tmp/mangohud_logs/*summary.csv
+          sudo mv /tmp/mangohud_logs/*.csv /tmp/mangohud_logs/benchmark.csv
 
       - name: Upload benchmark
         run: |
-          chmod +x upload.sh && sudo ./upload.sh ${{ secrets.MYSESSION }}
+          chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }}
 
 ###########################################################################
 
