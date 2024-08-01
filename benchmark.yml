@@ -1,0 +1,27 @@
+# - branch: main
+#   build:
+#     dir: scheds/rust/scx_bpfland/
+#     cmd: cargo build --release
+#   runs:
+#     - filename: bpfland-defaults.csv
+#       cmd: scheds/rust/scx_bpfland/target/release/scx_bpfland
+#     - filename: bpfland-c0-t0-k.csv
+#       cmd: scheds/rust/scx_bpfland/target/release/scx_bpfland -c 0 -t 0 -k
+
+- branch: bpfland-next
+  build:
+    dir: scheds/rust/scx_bpfland/
+    cmd: cargo build --release
+  runs:
+    - filename: bpfland-next-defaults.csv
+      cmd: scheds/rust/scx_bpfland/target/release/scx_bpfland
+    - filename: bpfland-next-c0-t0-k.csv
+      cmd: scheds/rust/scx_bpfland/target/release/scx_bpfland -c 0 -t 0 -k
+
+# - branch: asdf
+#   build:
+#     dir: scheds/rust/scx_asdf/
+#     cmd: cargo build --release
+#   runs:
+#     - filename: asdf-main-defaults.csv
+#       cmd: scheds/rust/scx_asdf/target/release/scx_asdf

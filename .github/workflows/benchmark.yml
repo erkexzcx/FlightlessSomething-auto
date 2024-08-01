@@ -23,39 +23,26 @@ jobs:
           sudo mkdir -p /tmp/mangohud_logs
           sudo chmod 777 /tmp/mangohud_logs/*
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
-###########################################################################
-
-      - name: Cleanup from previous run
+      - name: Cleanup from previous jobs
         run: |
           sudo chmod 777 /tmp/mangohud_logs/*
           rm -f /tmp/mangohud_logs/*
 
-      - name: Record benchmark
-        run: |
-          # Wake up from sleep (e.g. screen is off)
-          echo mousemove 2500 0 | dotoolc
-          sleep 1
+    ###########################################################################
 
-          # Do MangoHud benchmark
-          echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Start recording
-          for i in {1..100}; do echo mousemove 1000 0 | dotoolc; sleep 0.1; done
-          echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
+      - name: Download this repo
+        uses: actions/checkout@v4
 
-          # Wait for things to settle down
-          sleep 0.5
+      - name: Build and run benchmark
+        uses: chmod +x benchmark.sh && ./benchmark.sh benchmark.yml
 
       - name: Show recorded benchmark files
         run: |
           sudo chmod 777 /tmp/mangohud_logs/*
-          rm -f /tmp/mangohud_logs/*summary.csv
-          mv /tmp/mangohud_logs/*.csv /tmp/mangohud_logs/benchmark.csv
+          ls -l /tmp/mangohud_logs/*
 
-      - name: Upload benchmark
-        run: |
-          chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }}
+      - name: Upload benchmark to FlightlessSomething auto
+        run: chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }}
 
 ###########################################################################
 
