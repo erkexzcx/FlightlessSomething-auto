@@ -1,5 +1,5 @@
 camera_snaps_time_between: 0.1 # seconds
-camera_snaps_count: 100        # time_between_camera_snaps * camera_snaps_count = total time of the benchmark (in seconds)
+camera_snaps_count: 3000       # time_between_camera_snaps * camera_snaps_count = total time of the benchmark (in seconds)
 camera_rotation_pixels: 1000   # pixels (find out with trial and error)
 
 jobs:
@@ -11,3 +11,9 @@ jobs:
     runs:
       - filename: asdf-defaults.csv
         scheduler: release/scx_asdf
+      - filename: asdf-s1000-S1000.csv
+        scheduler: release/scx_asdf -s 1000 -S 1000
+      - filename: asdf-s1000.csv
+        scheduler: release/scx_asdf -s 1000
+      - filename: asdf-S1000.csv
+        scheduler: release/scx_asdf -S 1000
