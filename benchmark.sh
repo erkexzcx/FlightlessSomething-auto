@@ -51,11 +51,11 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Iterate over each run
     echo "$benchmark" | yq -c '.runs[]' | while read -r run; do
         run_filename=$(echo "$run" | yq -r '.filename')
-        run_cmd=$(echo "$run" | yq -r '.cmd')
+        run_scheduler=$(echo "$run" | yq -r '.scheduler')
 
         # Execute scheduler in the background
-        if [ -n "$run_cmd" ] && [ "$run_cmd" != "null" ]; then
-            eval "sudo $CARGO_TARGET_DIR/$run_cmd" &
+        if [ -n "$run_scheduler" ] && [ "$run_scheduler" != "null" ]; then
+            eval "sudo $CARGO_TARGET_DIR/$run_scheduler" &
         fi
 
         ######################################################
@@ -76,8 +76,8 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         ######################################################
 
         # Kill the scheduler that was running in the background
-        if [ -n "$run_cmd" ] && [ "$run_cmd" != "null" ]; then
-            sudo pkill -f "$run_cmd" || true
+        if [ -n "$run_scheduler" ] && [ "$run_scheduler" != "null" ]; then
+            sudo pkill -f "$run_scheduler" || true
             sleep 5 # Wait for scheduler to fully unregister
         fi
     done

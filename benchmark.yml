@@ -6,7 +6,7 @@
 #     cmd: cargo build --release     <- cargo build command
 #   runs:                            <- you can specify multiple runs, using different CMDs (e.g. with and without scheduler args)
 #     - filename: lavd-defaults.csv  <- CSV filename that will be shown in FlightlessSomething
-#       cmd: release/scx_lavd        <- Scheduler command to run (relative, target dir will be appended automatically). OPTIONAL - don't specify, so will not use (uses BORE)
+#       scheduler: release/scx_lavd  <- Scheduler command to run (relative, target dir will be appended automatically). OPTIONAL - don't specify, so will not use (uses BORE)
 
 - branch: main
   build:
@@ -14,10 +14,10 @@
     cmd: cargo build --release
   runs:
     - filename: bpfland-defaults.csv
-      cmd: release/scx_bpfland
+      scheduler: release/scx_bpfland
     - filename: bpfland-c0-t0-k.csv
-      cmd: release/scx_bpfland -c 0 -t 0 -k
-    # Test BORE this way (yes, don't specify "cmd" and scheduler will not be used = BORE)
+      scheduler: release/scx_bpfland -c 0 -t 0 -k
+    # Test BORE this way (yes, don't specify "scheduler" and scheduler will not be used = BORE)
     - filename: BORE.csv
 
 - branch: main
@@ -26,7 +26,7 @@
     cmd: cargo build --release
   runs:
     - filename: lavd-defaults.csv
-      cmd: release/scx_lavd
+      scheduler: release/scx_lavd
 
 - branch: main
   build:
@@ -34,7 +34,7 @@
     cmd: cargo build --release
   runs:
     - filename: rusty-defaults.csv
-      cmd: release/scx_rusty
+      scheduler: release/scx_rusty
 
 - branch: asdf
   build:
@@ -42,4 +42,4 @@
     cmd: cargo build --release
   runs:
     - filename: asdf-defaults.csv
-      cmd: release/scx_asdf
+      scheduler: release/scx_asdf
