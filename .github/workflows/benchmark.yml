@@ -20,6 +20,9 @@ jobs:
 
 ###########################################################################
 
+      - name: Download code
+        run: git clone 
+
       - name: Test dotool
         run: |
           # Cleanup
@@ -31,7 +34,7 @@ jobs:
 
           # Do MangoHud benchmark
           echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Start recording
-          for i in {1..50}; do echo mousemove 2500 0 | dotoolc; sleep 0.2; done
+          for i in {1..100}; do echo mousemove 1000 0 | dotoolc; sleep 0.1; done
           echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
 
           # Show what is recorded
