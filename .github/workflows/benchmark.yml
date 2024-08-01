@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and run benchmark
-        run: chmod +x benchmark.sh && ./benchmark.sh benchmark.yml
+        run: chmod +x benchmark.sh && ./benchmark.sh benchmarks/idle.yml
 
       - name: Show recorded benchmark files
         run: |
