@@ -74,6 +74,6 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         ######################################################
 
         # Kill the background process
-        kill $run_cmd_pid || true
+        sudo kill $run_cmd_pid || true
     done
 done
