@@ -33,9 +33,9 @@ jobs:
           sleep 1
 
           # Do MangoHud benchmark
-          ydotool key 42:1 68:1 68:0 42:0 #Shift_L+F2 - Start recording
+          ydotool key 42:1; sleep 0.05; ydotool key 68:1; sleep 0.05; ydotool key 68:0; sleep 0.05; ydotool key 42:0 #Shift_L+F2 - Start recording
           for i in {1..50}; do ydotool mousemove 2500 0; sleep 0.2; done
-          ydotool key 42:1 68:1 68:0 42:0 #Shift_L+F2 - Stop recording
+          ydotool key 42:1; sleep 0.05; ydotool key 68:1; sleep 0.05; ydotool key 68:0; sleep 0.05; ydotool key 42:0 #Shift_L+F2 - Start recording
 
           # Show what is recorded
           sudo rm -f /home/deck/mangohud_logs/*summary.csv
