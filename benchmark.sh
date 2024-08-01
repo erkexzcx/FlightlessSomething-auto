@@ -48,7 +48,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         run_cmd=$(echo "$run" | yq -r '.cmd')
 
         # Execute scheduler in the background
-        eval "sudo /tmp/scx-$branch/$run_cmd" &
+        eval "sudo /tmp/scx/$run_cmd" &
 
         ######################################################
         # Record benchmark data
