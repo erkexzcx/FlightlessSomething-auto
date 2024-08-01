@@ -34,7 +34,11 @@ jobs:
           for i in {1..100}; do echo mousemove 1000 0 | dotoolc; sleep 0.1; done
           echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
 
-          # Show what is recorded
+          # Wait for things to settle down
+          sleep 1
+
+      - name: Show recorded benchmark files
+        run: |
           sudo rm -f /home/deck/mangohud_logs/*summary.csv
           sudo ls -l /home/deck/mangohud_logs/
 
