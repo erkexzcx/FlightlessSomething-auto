@@ -16,7 +16,7 @@ on:
       description:
         description: 'Additional comment for this benchmark'
         required: true
-        default: ''
+        default: 'Manually triggered benchmark'
 
 jobs:
   benchmark:
