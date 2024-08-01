@@ -30,6 +30,7 @@ jobs:
 
       - name: Cleanup from previous run
         run: |
+          sudo chmod 777 /tmp/mangohud_logs/*
           rm -f /tmp/mangohud_logs/*
 
       - name: Record benchmark
