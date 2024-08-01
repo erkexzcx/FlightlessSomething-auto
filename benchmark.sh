@@ -54,7 +54,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         run_cmd=$(echo "$run" | yq -r '.cmd')
 
         # Execute scheduler in the background
-        if [ -n "$run_cmd" ]; then
+        if [ -n "$run_cmd" ] && [ "$run_cmd" != "null" ]; then
             eval "sudo $CARGO_TARGET_DIR/$run_cmd" &
         fi
 
@@ -76,7 +76,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         ######################################################
 
         # Kill the scheduler that was running in the background
-        if [ -n "$run_cmd" ]; then
+        if [ -n "$run_cmd" ] && [ "$run_cmd" != "null" ]; then
             sudo pkill -f "$run_cmd" || true
             sleep 5 # Wait for scheduler to fully unregister
         fi
