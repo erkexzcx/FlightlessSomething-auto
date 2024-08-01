@@ -82,7 +82,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sleep 1
 
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc                # Start recording
-        for i in {1..$SNAP_COUNT}; do echo mousemove $MOUSE_MOVE 0 | dotoolc; sleep $SNAP_TIME; done # Snap mouse to the right, by 1000px, for 120 seconds
+        for i in $(seq 1 $SNAP_COUNT); do echo mousemove $MOUSE_MOVE 0 | dotoolc; sleep $SNAP_TIME; done # Snap mouse to the right, by 1000px, for 120 seconds
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc                # Stop recording
 
         sleep 1
