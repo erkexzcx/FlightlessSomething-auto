@@ -1,3 +1,13 @@
+### Example:
+###
+# - branch: main                     <- branch name, from https://github.com/sched-ext/scx
+#   build:
+#     dir: scheds/rust/scx_lavd/     <- directory in which to build, relative to the root of the repo
+#     cmd: cargo build --release     <- cargo build command
+#   runs:                            <- you can specify multiple runs, using different CMDs (e.g. with and without scheduler args)
+#     - filename: lavd-defaults.csv  <- CSV filename that will be shown in FlightlessSomething
+#       cmd: release/scx_lavd        <- Scheduler command to run (relative, target dir will be appended automatically)
+
 - branch: main
   build:
     dir: scheds/rust/scx_bpfland/
