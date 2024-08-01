@@ -25,7 +25,7 @@ jobs:
 
       - name: Cleanup from previous run
         run: |
-          sudo rm -f /tmp/mangohud_logs/*
+          rm -f /tmp/mangohud_logs/*
 
       - name: Record benchmark
         run: |
@@ -43,8 +43,8 @@ jobs:
 
       - name: Show recorded benchmark files
         run: |
-          sudo rm -f /tmp/mangohud_logs/*summary.csv
-          sudo mv /tmp/mangohud_logs/*.csv /tmp/mangohud_logs/benchmark.csv
+          rm -f /tmp/mangohud_logs/*summary.csv
+          mv /tmp/mangohud_logs/*.csv /tmp/mangohud_logs/benchmark.csv
 
       - name: Upload benchmark
         run: |
