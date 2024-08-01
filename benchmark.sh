@@ -51,7 +51,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         run_cmd=$(echo "$run" | yq -r '.cmd')
 
         # Execute the run command in the background
-        eval "/tmp/scx-$branch/$run_cmd" &
+        eval "sudo /tmp/scx-$branch/$run_cmd" &
 
         # Store the PID of the background process
         run_cmd_pid=$!
