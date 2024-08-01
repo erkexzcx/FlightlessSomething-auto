@@ -9,13 +9,21 @@ if ! command -v yq &> /dev/null; then
     exit 1
 fi
 
-# Path to the benchmark.yml file
+# Path to the benchmark yml file
 BENCHMARK_FILE=$1
 
 if [ -z "$BENCHMARK_FILE" ]; then
     echo "Usage: $0 <path_to_benchmark.yml>"
     exit 1
 fi
+
+# Extract some root variables from the benchmark yml file
+# camera_snaps_time_between: 0.1 # seconds
+# camera_snaps_count: 300        # time_between_camera_snaps * camera_snaps_count = total time of the benchmark
+# camera_rotation_pixels: 1000   # pixels (find out with trial and error)
+SNAP_TIME=$(yq -r '.camera_snaps_time_between' "$BENCHMARK_FILE")
+SNAP_COUNT=$(yq -r '.camera_snaps_count' "$BENCHMARK_FILE")
+MOUSE_MOVE=$(yq -r '.camera_rotation_pixels' "$BENCHMARK_FILE")
 
 # Clone the repository
 git clone https://github.com/sched-ext/scx.git /tmp/scx || true
@@ -31,7 +39,7 @@ echo mousemove 1000 0 | dotoolc
 sleep 5
 
 # Read the benchmark.yml file and process each entry
-yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
+yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Extract branch, build directory, and build command
     branch=$(echo "$benchmark" | yq -r '.branch')
     build_dir=$(echo "$benchmark" | yq -r '.build.dir')
@@ -73,9 +81,9 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sudo kill -CONT $(pgrep -f 'Cyberpunk2077.exe') # Resume the game
         sleep 1
 
-        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Start recording
-        for i in {1..1200}; do echo mousemove 1000 0 | dotoolc; sleep 0.1; done       # Snap mouse to the right, by 1000px, for 120 seconds
-        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
+        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc                # Start recording
+        for i in {1..$SNAP_COUNT}; do echo mousemove $MOUSE_MOVE 0 | dotoolc; sleep $SNAP_TIME; done # Snap mouse to the right, by 1000px, for 120 seconds
+        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc                # Stop recording
 
         sleep 1
         sudo kill -STOP $(pgrep -f 'Cyberpunk2077.exe') # Pause the game

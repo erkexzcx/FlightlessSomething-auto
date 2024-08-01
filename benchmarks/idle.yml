@@ -9,38 +9,44 @@
 #       scheduler: release/scx_lavd  <- Scheduler command to run (relative, target dir will be appended automatically). OPTIONAL - don't specify, so will not use (uses BORE)
 #       load_cmd: stress -c 8        <- Optional - stress command, to cause background load
 
-- branch: main
-  build:
-    dir: scheds/rust/scx_bpfland/
-    cmd: cargo build --release
-  runs:
-    - filename: bpfland-defaults.csv
-      scheduler: release/scx_bpfland
-    - filename: bpfland-c0-t0-k.csv
-      scheduler: release/scx_bpfland -c 0 -t 0 -k
-    # Test BORE this way (yes, don't specify "scheduler" and scheduler will not be used = BORE)
-    - filename: BORE.csv
+camera_snaps_time_between: 0.1 # seconds
+camera_snaps_count: 300        # time_between_camera_snaps * camera_snaps_count = total time of the benchmark
+camera_rotation_pixels: 1000   # pixels (find out with trial and error)
 
-- branch: main
-  build:
-    dir: scheds/rust/scx_lavd/
-    cmd: cargo build --release
-  runs:
-    - filename: lavd-defaults.csv
-      scheduler: release/scx_lavd
+jobs:
 
-- branch: main
-  build:
-    dir: scheds/rust/scx_rusty/
-    cmd: cargo build --release
-  runs:
-    - filename: rusty-defaults.csv
-      scheduler: release/scx_rusty
+  - branch: main
+    build:
+      dir: scheds/rust/scx_bpfland/
+      cmd: cargo build --release
+    runs:
+      - filename: bpfland-defaults.csv
+        scheduler: release/scx_bpfland
+      - filename: bpfland-c0-t0-k.csv
+        scheduler: release/scx_bpfland -c 0 -t 0 -k
+      # Test BORE this way (yes, don't specify "scheduler" and scheduler will not be used = BORE)
+      - filename: BORE.csv
 
-- branch: asdf
-  build:
-    dir: scheds/rust/scx_asdf/
-    cmd: cargo build --release
-  runs:
-    - filename: asdf-defaults.csv
-      scheduler: release/scx_asdf
+  - branch: main
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults.csv
+        scheduler: release/scx_lavd
+
+  - branch: main
+    build:
+      dir: scheds/rust/scx_rusty/
+      cmd: cargo build --release
+    runs:
+      - filename: rusty-defaults.csv
+        scheduler: release/scx_rusty
+
+  - branch: asdf
+    build:
+      dir: scheds/rust/scx_asdf/
+      cmd: cargo build --release
+    runs:
+      - filename: asdf-defaults.csv
+        scheduler: release/scx_asdf

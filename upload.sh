@@ -1,14 +1,15 @@
 #!/bin/bash
 
 # Check if the correct number of arguments is provided
-if [ "$#" -ne 2 ]; then
-  echo "Usage: $0 <mysession_value> <runjob_url>"
+if [ "$#" -ne 3 ]; then
+  echo "Usage: $0 <mysession_value> <runjob_url> <additional_description>"
   exit 1
 fi
 
 # Assign argument to variable
 MYSESSION=$1
 JOBURL=$2
+DESCRIPTION=$3
 
 # Some hardcoded variables
 DIRECTORY="/tmp/mangohud_logs"
@@ -36,7 +37,7 @@ curl_command=(
   -X POST
   -H "Cookie: mysession=$MYSESSION"
   -F "title=Automated CP2077 benchmark at $TIMESTAMP"
-  -F "description=Automated Cyberpunk 2077 benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL"
+  -F "description=Automated Cyberpunk 2077 benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
 )
 
 # Loop over all CSV files in the specified directory

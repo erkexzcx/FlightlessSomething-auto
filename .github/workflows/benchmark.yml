@@ -12,6 +12,11 @@ on:
           - idle.yml
           - busy.yml
           - arighi.yml
+          - erkexzcx.yml
+      description:
+        description: 'Additional comment for this benchmark'
+        required: true
+        default: ''
 
 jobs:
   benchmark:
@@ -34,7 +39,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and run benchmark
-        run: chmod +x benchmark.sh && ./benchmark.sh benchmarks/${{ github.event.inputs.benchmark_file }}
+        run: chmod +x benchmark.sh && ./benchmark.sh "benchmarks/${{ github.event.inputs.benchmark_file }}"
 
       - name: Show recorded benchmark files
         run: |
@@ -44,4 +49,4 @@ jobs:
       - name: Upload benchmark to FlightlessSomething auto
         run: |
           JOBURL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-          chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }} $JOBURL
+          chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }} "$JOBURL" "${{ github.event.inputs.description }}"
