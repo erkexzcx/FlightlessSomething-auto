@@ -56,10 +56,16 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     echo "$benchmark" | yq -c '.runs[]' | while read -r run; do
         run_filename=$(echo "$run" | yq -r '.filename')
         run_scheduler=$(echo "$run" | yq -r '.scheduler')
+        run_load_cmd=$(echo "$run" | yq -r '.load_cmd')
 
         # Execute scheduler in the background
         if [ -n "$run_scheduler" ] && [ "$run_scheduler" != "null" ]; then
             eval "sudo $CARGO_TARGET_DIR/$run_scheduler" &
+        fi
+
+        # Execute background load command in the background
+        if [ -n "$run_load_cmd" ] && [ "$run_load_cmd" != "null" ]; then
+            eval "$run_load_cmd" &
         fi
 
         ######################################################
@@ -78,6 +84,11 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         rm -rf /tmp/mangohud_logs/*summary.csv
         mv /tmp/mangohud_logs/Cyberpunk2077_*.csv /tmp/mangohud_logs/$run_filename
         ######################################################
+
+        # Kill background load command
+        if [ -n "$run_load_cmd" ] && [ "$run_load_cmd" != "null" ]; then
+            sudo pkill -f "$run_load_cmd" || true
+        fi
 
         # Kill the scheduler that was running in the background
         if [ -n "$run_scheduler" ] && [ "$run_scheduler" != "null" ]; then

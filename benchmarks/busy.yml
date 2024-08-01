@@ -16,10 +16,13 @@
   runs:
     - filename: bpfland-defaults.csv
       scheduler: release/scx_bpfland
+      load_cmd: stress -c 8
     - filename: bpfland-c0-t0-k.csv
       scheduler: release/scx_bpfland -c 0 -t 0 -k
+      load_cmd: stress -c 8
     # Test BORE this way (yes, don't specify "scheduler" and scheduler will not be used = BORE)
     - filename: BORE.csv
+      load_cmd: stress -c 8
 
 - branch: main
   build:
@@ -28,6 +31,7 @@
   runs:
     - filename: lavd-defaults.csv
       scheduler: release/scx_lavd
+      load_cmd: stress -c 8
 
 - branch: main
   build:
@@ -36,6 +40,7 @@
   runs:
     - filename: rusty-defaults.csv
       scheduler: release/scx_rusty
+      load_cmd: stress -c 8
 
 - branch: asdf
   build:
@@ -44,3 +49,4 @@
   runs:
     - filename: asdf-defaults.csv
       scheduler: release/scx_asdf
+      load_cmd: stress -c 8
