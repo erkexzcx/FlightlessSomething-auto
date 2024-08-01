@@ -20,7 +20,7 @@ jobs:
       - name: Ensure /tmp/mangohud_logs exist
         run: |
           sudo mkdir -p /tmp/mangohud_logs
-          sudo chmod 777 /tmp/mangohud_logs/*
+          sudo chmod -R 777 /tmp/mangohud_logs/
 
       - name: Cleanup from previous jobs
         run: |
