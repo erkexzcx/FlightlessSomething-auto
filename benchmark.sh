@@ -34,11 +34,14 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     cp -r /tmp/scx "/tmp/scx-$branch"
 
     # Change to the temporary directory
-    cd "/tmp/scx-$branch" || exit
+    cd "/tmp/scx-$branch"
 
     # Checkout the branch
     git checkout "$branch"
 
+    # Enter the build directory
+    cd "$build_dir"
+    
     # Execute the build command
     eval "$build_cmd"
 
