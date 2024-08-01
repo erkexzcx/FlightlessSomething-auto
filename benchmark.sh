@@ -50,11 +50,8 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         run_filename=$(echo "$run" | yq -r '.filename')
         run_cmd=$(echo "$run" | yq -r '.cmd')
 
-        # Execute the run command in the background
+        # Execute scheduler in the background
         eval "sudo /tmp/scx-$branch/$run_cmd" &
-
-        # Store the PID of the background process
-        run_cmd_pid=$!
 
         ######################################################
         # Record benchmark data
@@ -73,7 +70,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         mv /tmp/mangohud_logs/Cyberpunk2077_*.csv /tmp/mangohud_logs/$run_filename
         ######################################################
 
-        # Kill the background process
-        sudo kill $run_cmd_pid || true
+        # Kill the background scheduler processes
+        sudo pkill -f 'scx_' || true
     done
 done
