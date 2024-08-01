@@ -30,14 +30,11 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     build_dir=$(echo "$benchmark" | yq -r '.build.dir')
     build_cmd=$(echo "$benchmark" | yq -r '.build.cmd')
 
-    # Create a temporary directory for the branch
-    cp -r /tmp/scx "/tmp/scx-$branch"
-
     # Change to the temporary directory
-    cd "/tmp/scx-$branch"
+    cd "/tmp/scx"
 
     # Checkout the branch
-    git checkout "$branch"
+    git reset --hard "$branch"
 
     # Enter the build directory
     cd "$build_dir"
