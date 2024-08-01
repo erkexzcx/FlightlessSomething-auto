@@ -16,7 +16,7 @@ jobs:
 
       - name: Ensure dotool pipe has needed permissions
         run: |
-          sudo chmod 777 /tmp/dotool-pipe
+          sudo chown $USER /tmp/dotool-pipe
 
 ###########################################################################
 
