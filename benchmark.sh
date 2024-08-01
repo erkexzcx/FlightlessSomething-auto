@@ -21,6 +21,8 @@ fi
 git clone https://github.com/sched-ext/scx.git /tmp/scx || true
 
 # Create scx build target dir
+# This means target is shared between builds (different schedulers, different branches)
+# so dependencies are not built multiple times and time is saved...
 export CARGO_TARGET_DIR=/tmp/scx_cargo_build_target
 mkdir -p "$CARGO_TARGET_DIR"
 
