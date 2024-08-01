@@ -14,6 +14,10 @@ jobs:
       - name: Unfreeze the game
         run: sudo kill -CONT $(pgrep -f 'Cyberpunk2077.exe')
 
+      - name: Ensure dotool pipe has needed permissions
+        run: |
+          sudo chmod 777 /tmp/dotool-pipe
+
 ###########################################################################
 
       - name: Test dotool
