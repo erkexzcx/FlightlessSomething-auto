@@ -53,7 +53,7 @@ yq e -o=json '.' "$BENCHMARK_FILE" | yq e -c '.[]' - | while read -r benchmark; 
         sleep 1
 
         sudo chmod -R 777 /tmp/mangohud_logs/
-        rm -f /tmp/mangohud_logs/*summary.csv
+        rm -rf /tmp/mangohud_logs/*summary.csv
         mv /tmp/mangohud_logs/Cyberpunk2077_*.csv /tmp/mangohud_logs/$run_filename
         ######################################################
 
