@@ -78,6 +78,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         # Kill the scheduler that was running in the background
         if [ -n "$run_cmd" ]; then
             sudo pkill -f "$run_cmd" || true
+            sleep 5 # Wait for scheduler to fully unregister
         fi
     done
 done
