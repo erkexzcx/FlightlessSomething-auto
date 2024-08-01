@@ -24,3 +24,8 @@ echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # 
 
 sudo kill -STOP $(pgrep -f 'Cyberpunk2077.exe') # Pause the game
 ```
+
+Also, on each boot, from `deck` user:
+```bash
+systemctl --user start dotoold.service
+```
