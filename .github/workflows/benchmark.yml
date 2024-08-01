@@ -18,6 +18,10 @@ jobs:
         run: |
           sudo chown $USER /tmp/dotool-pipe
 
+      - name: Ensure /tmp/mangohud_logs exist
+        run: |
+          mkdir -p /tmp/mangohud_logs
+
       - name: Checkout
         uses: actions/checkout@v4
 
