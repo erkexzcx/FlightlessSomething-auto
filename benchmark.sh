@@ -41,7 +41,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
     # Enter the build directory
     cd "$build_dir"
-    
+
     # Execute the build command
     eval "$build_cmd"
 
@@ -58,6 +58,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         ######################################################
         # Record benchmark data
+        sudo kill -CONT $(pgrep -f 'Cyberpunk2077.exe')
         sleep 1
 
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Start recording
@@ -65,6 +66,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
 
         sleep 1
+        sudo kill -STOP $(pgrep -f 'Cyberpunk2077.exe') # Pause the game
 
         sudo chmod -R 777 /tmp/mangohud_logs/
         rm -rf /tmp/mangohud_logs/*summary.csv
