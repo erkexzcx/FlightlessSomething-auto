@@ -30,6 +30,9 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Change to the temporary directory
     cd "/tmp/scx"
 
+    # Fetch the latest changes
+    git fetch origin
+
     # Checkout the branch
     git reset --hard "$branch"
 
