@@ -55,6 +55,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         # Execute scheduler in the background
         eval "sudo $CARGO_TARGET_DIR/$run_cmd" &
+        scheduler_pid=$!
 
         ######################################################
         # Record benchmark data
@@ -73,7 +74,7 @@ yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         mv /tmp/mangohud_logs/Cyberpunk2077_*.csv /tmp/mangohud_logs/$run_filename
         ######################################################
 
-        # Kill the background scheduler processes
-        sudo pkill -f 'scx_' || true
+        # Kill scheduler
+        sudo kill $scheduler_pid
     done
 done
