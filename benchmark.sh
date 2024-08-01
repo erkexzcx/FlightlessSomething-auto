@@ -3,21 +3,32 @@
 # Exit immediately on error
 set -e
 
+# Check if yq is installed
+if ! command -v yq &> /dev/null; then
+    echo "yq could not be found. Please install yq."
+    exit 1
+fi
+
 # Path to the benchmark.yml file
 BENCHMARK_FILE=$1
 
-# cleanup from previous jobs
+if [ -z "$BENCHMARK_FILE" ]; then
+    echo "Usage: $0 <path_to_benchmark.yml>"
+    exit 1
+fi
+
+# Cleanup from previous jobs
 sudo rm -rf /tmp/scx*
 
 # Clone the repository
 git clone https://github.com/sched-ext/scx.git /tmp/scx
 
 # Read the benchmark.yml file and process each entry
-yq eval -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
+yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Extract branch, build directory, and build command
-    branch=$(echo "$benchmark" | yq eval -r '.branch' -)
-    build_dir=$(echo "$benchmark" | yq eval -r '.build.dir' -)
-    build_cmd=$(echo "$benchmark" | yq eval -r '.build.cmd' -)
+    branch=$(echo "$benchmark" | yq -r '.branch')
+    build_dir=$(echo "$benchmark" | yq -r '.build.dir')
+    build_cmd=$(echo "$benchmark" | yq -r '.build.cmd')
 
     # Create a temporary directory for the branch
     cp -r /tmp/scx "/tmp/scx-$branch"
@@ -32,9 +43,9 @@ yq eval -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     eval "$build_cmd"
 
     # Iterate over each run
-    echo "$benchmark" | yq eval -c '.runs[]' - | while read -r run; do
-        run_filename=$(echo "$run" | yq eval -r '.filename' -)
-        run_cmd=$(echo "$run" | yq eval -r '.cmd' -)
+    echo "$benchmark" | yq -c '.runs[]' | while read -r run; do
+        run_filename=$(echo "$run" | yq -r '.filename')
+        run_cmd=$(echo "$run" | yq -r '.cmd')
 
         # Execute the run command in the background
         eval "$run_cmd" &
