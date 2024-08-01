@@ -13,11 +13,11 @@ sudo rm -rf /tmp/scx*
 git clone https://github.com/sched-ext/scx.git /tmp/scx
 
 # Read the benchmark.yml file and process each entry
-yq e -o=json '.' "$BENCHMARK_FILE" | jq -c '.[]' | while read -r benchmark; do
+yq eval -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Extract branch, build directory, and build command
-    branch=$(echo "$benchmark" | jq -r '.branch')
-    build_dir=$(echo "$benchmark" | jq -r '.build.dir')
-    build_cmd=$(echo "$benchmark" | jq -r '.build.cmd')
+    branch=$(echo "$benchmark" | yq eval -r '.branch' -)
+    build_dir=$(echo "$benchmark" | yq eval -r '.build.dir' -)
+    build_cmd=$(echo "$benchmark" | yq eval -r '.build.cmd' -)
 
     # Create a temporary directory for the branch
     cp -r /tmp/scx "/tmp/scx-$branch"
@@ -32,9 +32,9 @@ yq e -o=json '.' "$BENCHMARK_FILE" | jq -c '.[]' | while read -r benchmark; do
     eval "$build_cmd"
 
     # Iterate over each run
-    echo "$benchmark" | jq -c '.runs[]' | while read -r run; do
-        run_filename=$(echo "$run" | jq -r '.filename')
-        run_cmd=$(echo "$run" | jq -r '.cmd')
+    echo "$benchmark" | yq eval -c '.runs[]' - | while read -r run; do
+        run_filename=$(echo "$run" | yq eval -r '.filename' -)
+        run_cmd=$(echo "$run" | yq eval -r '.cmd' -)
 
         # Execute the run command in the background
         eval "$run_cmd" &
