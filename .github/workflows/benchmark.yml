@@ -34,7 +34,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and run benchmark
-        uses: chmod +x benchmark.sh && ./benchmark.sh benchmark.yml
+        uses: |
+          chmod +x benchmark.sh && ./benchmark.sh benchmark.yml
 
       - name: Show recorded benchmark files
         run: |
@@ -42,9 +43,10 @@ jobs:
           ls -l /tmp/mangohud_logs/*
 
       - name: Upload benchmark to FlightlessSomething auto
-        run: chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }}
+        run: |
+          chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }}
 
-###########################################################################
+    ###########################################################################
 
       - name: Freeze the game
         run: sudo kill -STOP $(pgrep -f 'Cyberpunk2077.exe')
