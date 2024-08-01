@@ -18,9 +18,12 @@ jobs:
         run: |
           sudo chown $USER /tmp/dotool-pipe
 
+      - name: Checkout
+        uses: actions/checkout@v4
+
 ###########################################################################
 
-      - name: Test dotool
+      - name: Record benchmark
         run: |
           # Cleanup
           sudo rm -f /home/deck/mangohud_logs/*
@@ -41,6 +44,10 @@ jobs:
         run: |
           sudo rm -f /home/deck/mangohud_logs/*summary.csv
           sudo ls -l /home/deck/mangohud_logs/
+
+      - name: Upload benchmark
+        run: |
+          chmod +x upload.sh && sudo upload.sh ${{ secrets.MYSESSION }}
 
 ###########################################################################
 
