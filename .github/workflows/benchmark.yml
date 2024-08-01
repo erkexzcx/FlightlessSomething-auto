@@ -33,5 +33,5 @@ jobs:
 
       - name: Upload benchmark to FlightlessSomething auto
         run: |
-          JOBURL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs/${GITHUB_JOB}"
+          JOBURL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }} $JOBURL
