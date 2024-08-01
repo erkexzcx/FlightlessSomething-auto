@@ -29,9 +29,6 @@ jobs:
 
       - name: Record benchmark
         run: |
-          # Cleanup
-          sudo rm -f /home/deck/mangohud_logs/*
-
           # Wake up from sleep (e.g. screen is off)
           echo mousemove 2500 0 | dotoolc
           sleep 1
