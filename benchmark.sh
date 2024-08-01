@@ -17,11 +17,8 @@ if [ -z "$BENCHMARK_FILE" ]; then
     exit 1
 fi
 
-# Cleanup from previous jobs
-sudo rm -rf /tmp/scx*
-
 # Clone the repository
-git clone https://github.com/sched-ext/scx.git /tmp/scx
+git clone https://github.com/sched-ext/scx.git /tmp/scx || true
 
 # Read the benchmark.yml file and process each entry
 yq -c '.[]' "$BENCHMARK_FILE" | while read -r benchmark; do
