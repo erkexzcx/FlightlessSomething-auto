@@ -1,11 +1,36 @@
 camera_snaps_time_between: 0.1 # seconds
-camera_snaps_count: 1200       # time_between_camera_snaps * camera_snaps_count = total time of the benchmark (in seconds)
+camera_snaps_count: 3000       # time_between_camera_snaps * camera_snaps_count = total time of the benchmark (in seconds)
 camera_rotation_pixels: 1000   # pixels (find out with trial and error)
 
-# Specify background load task
-#background_load: stress -c 8
-
 jobs:
+
+  - branch: main
+    build:
+      dir: scheds/rust/scx_bpfland/
+      cmd: cargo build --release
+    runs:
+      - filename: bpfland-defaults.csv
+        scheduler: release/scx_bpfland
+      - filename: bpfland-c0-t0-k.csv
+        scheduler: release/scx_bpfland -c 0 -t 0 -k
+      # Test BORE this way (yes, don't specify "scheduler" and scheduler will not be used = BORE)
+      - filename: BORE.csv
+
+  - branch: main
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults.csv
+        scheduler: release/scx_lavd
+
+  - branch: main
+    build:
+      dir: scheds/rust/scx_rusty/
+      cmd: cargo build --release
+    runs:
+      - filename: rusty-defaults.csv
+        scheduler: release/scx_rusty
 
   - branch: asdf
     build:
@@ -14,23 +39,3 @@ jobs:
     runs:
       - filename: asdf-defaults.csv
         scheduler: release/scx_asdf
-      - filename: asdf-s200-S200.csv
-        scheduler: release/scx_asdf -s 200 -S 200
-      - filename: asdf-s400-S400.csv
-        scheduler: release/scx_asdf -s 400 -S 400
-      - filename: asdf-s600-S600.csv
-        scheduler: release/scx_asdf -s 600 -S 600
-      - filename: asdf-s800-S800.csv
-        scheduler: release/scx_asdf -s 800 -S 800
-      - filename: asdf-s1000-S1000.csv
-        scheduler: release/scx_asdf -s 1000 -S 1000
-      - filename: asdf-s1200-S1200.csv
-        scheduler: release/scx_asdf -s 1200 -S 1200
-      - filename: asdf-s1400-S1400.csv
-        scheduler: release/scx_asdf -s 1400 -S 1400
-      - filename: asdf-s1600-S1600.csv
-        scheduler: release/scx_asdf -s 1600 -S 1600
-      - filename: asdf-s1800-S1800.csv
-        scheduler: release/scx_asdf -s 1800 -S 1800
-      - filename: asdf-s2000-S2000.csv
-        scheduler: release/scx_asdf -s 2000 -S 2000
