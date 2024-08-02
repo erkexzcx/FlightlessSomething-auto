@@ -21,6 +21,7 @@ on:
 
 jobs:
   benchmark:
+    name: BG3 benchmark, ${{ github.event.inputs.benchmark_file }}, ${{ github.event.inputs.description }}
     runs-on: [self-hosted, Linux, X64, steam-deck]
     steps:
 
