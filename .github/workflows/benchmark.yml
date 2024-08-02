@@ -12,6 +12,7 @@ on:
           - idle.yml
           - busy.yml
           - arighi.yml
+          - arighi_load.yml
           - erkexzcx.yml
       description:
         description: 'Additional comment for this benchmark'

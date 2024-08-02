@@ -3,7 +3,7 @@
 camera_spin_duration: 300 # In seconds
 
 # Specify background load task
-#background_load: stress -c 8
+background_load: stress -c 8
 
 jobs:
 
