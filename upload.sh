@@ -13,7 +13,7 @@ DESCRIPTION=$3
 
 # Some hardcoded variables
 DIRECTORY="/tmp/mangohud_logs"
-BASE_URL="https://flightlesssomething-auto.duckdns.org"
+BASE_URL="https://flightlesssomething-auto.ambrosia.one"
 
 # Check if the directory exists
 if [ ! -d "$DIRECTORY" ]; then
