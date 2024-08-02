@@ -25,6 +25,9 @@ SNAP_TIME=$(yq -r '.camera_snaps_time_between' "$BENCHMARK_FILE")
 SNAP_COUNT=$(yq -r '.camera_snaps_count' "$BENCHMARK_FILE")
 MOUSE_MOVE=$(yq -r '.camera_rotation_pixels' "$BENCHMARK_FILE")
 
+# Background load var
+BACKGROUND_LOAD=$(yq -r '.background_load' "$BENCHMARK_FILE")
+
 # Clone the repository
 git clone https://github.com/sched-ext/scx.git /tmp/scx || true
 
@@ -64,7 +67,6 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     echo "$benchmark" | yq -c '.runs[]' | while read -r run; do
         run_filename=$(echo "$run" | yq -r '.filename')
         run_scheduler=$(echo "$run" | yq -r '.scheduler')
-        run_load_cmd=$(echo "$run" | yq -r '.load_cmd')
 
         # Execute scheduler in the background
         if [ -n "$run_scheduler" ] && [ "$run_scheduler" != "null" ]; then
@@ -72,8 +74,8 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         fi
 
         # Execute background load command in the background
-        if [ -n "$run_load_cmd" ] && [ "$run_load_cmd" != "null" ]; then
-            eval "$run_load_cmd" &
+        if [ -n "$BACKGROUND_LOAD" ] && [ "$BACKGROUND_LOAD" != "null" ]; then
+            eval "$BACKGROUND_LOAD" &
         fi
 
         ######################################################
@@ -81,9 +83,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sudo kill -CONT $(pgrep -f 'Cyberpunk2077.exe') # Resume the game
         sleep 1
 
-        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc                # Start recording
+        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc                    # Start recording
         for i in $(seq 1 $SNAP_COUNT); do echo mousemove $MOUSE_MOVE 0 | dotoolc; sleep $SNAP_TIME; done # Snap mouse to the right, by 1000px, for 120 seconds
-        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc                # Stop recording
+        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc                    # Stop recording
 
         sleep 1
         sudo kill -STOP $(pgrep -f 'Cyberpunk2077.exe') # Pause the game
@@ -94,8 +96,8 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         ######################################################
 
         # Kill background load command
-        if [ -n "$run_load_cmd" ] && [ "$run_load_cmd" != "null" ]; then
-            sudo pkill -f "$run_load_cmd" || true
+        if [ -n "$BACKGROUND_LOAD" ] && [ "$BACKGROUND_LOAD" != "null" ]; then
+            sudo pkill -f "$BACKGROUND_LOAD" || true
         fi
 
         # Kill the scheduler that was running in the background

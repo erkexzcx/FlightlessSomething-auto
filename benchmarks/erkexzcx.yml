@@ -2,6 +2,9 @@ camera_snaps_time_between: 0.1 # seconds
 camera_snaps_count: 1200       # time_between_camera_snaps * camera_snaps_count = total time of the benchmark (in seconds)
 camera_rotation_pixels: 1000   # pixels (find out with trial and error)
 
+# Specify background load task
+#background_load: stress -c 8
+
 jobs:
 
   - branch: asdf

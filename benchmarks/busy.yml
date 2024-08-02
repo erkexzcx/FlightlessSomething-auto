@@ -7,11 +7,13 @@
 #   runs:                            <- you can specify multiple runs, using different CMDs (e.g. with and without scheduler args)
 #     - filename: lavd-defaults.csv  <- CSV filename that will be shown in FlightlessSomething
 #       scheduler: release/scx_lavd  <- Scheduler command to run (relative, target dir will be appended automatically). OPTIONAL - don't specify, so will not use (uses BORE)
-#       load_cmd: stress -c 8        <- Optional - stress command, to cause background load
 
 camera_snaps_time_between: 0.1 # seconds
 camera_snaps_count: 300        # time_between_camera_snaps * camera_snaps_count = total time of the benchmark (in seconds)
 camera_rotation_pixels: 1000   # pixels (find out with trial and error)
+
+# Specify background load task
+background_load: stress -c 8
 
 jobs:
 
@@ -22,13 +24,10 @@ jobs:
     runs:
       - filename: bpfland-defaults.csv
         scheduler: release/scx_bpfland
-        load_cmd: stress -c 8
       - filename: bpfland-c0-t0-k.csv
         scheduler: release/scx_bpfland -c 0 -t 0 -k
-        load_cmd: stress -c 8
       # Test BORE this way (yes, don't specify "scheduler" and scheduler will not be used = BORE)
       - filename: BORE.csv
-        load_cmd: stress -c 8
 
   - branch: main
     build:
@@ -37,7 +36,6 @@ jobs:
     runs:
       - filename: lavd-defaults.csv
         scheduler: release/scx_lavd
-        load_cmd: stress -c 8
 
   - branch: main
     build:
@@ -46,7 +44,6 @@ jobs:
     runs:
       - filename: rusty-defaults.csv
         scheduler: release/scx_rusty
-        load_cmd: stress -c 8
 
   - branch: asdf
     build:
@@ -55,4 +52,3 @@ jobs:
     runs:
       - filename: asdf-defaults.csv
         scheduler: release/scx_asdf
-        load_cmd: stress -c 8
