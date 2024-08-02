@@ -36,8 +36,8 @@ curl_command=(
   curl -i "$BASE_URL/benchmark"
   -X POST
   -H "Cookie: mysession=$MYSESSION"
-  -F "title=Automated CP2077 benchmark at $TIMESTAMP"
-  -F "description=Automated Cyberpunk 2077 benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
+  -F "title=Automated BG3 benchmark at $TIMESTAMP"
+  -F "description=Automated Baldurs Gate 3 benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
 )
 
 # Loop over all CSV files in the specified directory

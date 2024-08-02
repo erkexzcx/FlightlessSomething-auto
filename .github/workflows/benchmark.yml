@@ -1,4 +1,4 @@
-name: Benchmark CP2077
+name: Benchmark BG3
 
 on:
   workflow_dispatch:
@@ -23,8 +23,8 @@ jobs:
     runs-on: [self-hosted, Linux, X64, steam-deck]
     steps:
 
-      - name: Check if Cyberpunk 2077 is not running
-        run: pgrep -f 'Cyberpunk2077.exe' > /dev/null
+      - name: Check if game is not running
+        run: pgrep -f 'bg3.exe' > /dev/null
 
       - name: Ensure dotool pipe has needed permissions
         run: sudo chown $USER /tmp/dotool-pipe

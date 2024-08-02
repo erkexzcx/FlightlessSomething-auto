@@ -18,12 +18,7 @@ if [ -z "$BENCHMARK_FILE" ]; then
 fi
 
 # Extract some root variables from the benchmark yml file
-# camera_snaps_time_between: 0.1 # seconds
-# camera_snaps_count: 300        # time_between_camera_snaps * camera_snaps_count = total time of the benchmark
-# camera_rotation_pixels: 1000   # pixels (find out with trial and error)
-SNAP_TIME=$(yq -r '.camera_snaps_time_between' "$BENCHMARK_FILE")
-SNAP_COUNT=$(yq -r '.camera_snaps_count' "$BENCHMARK_FILE")
-MOUSE_MOVE=$(yq -r '.camera_rotation_pixels' "$BENCHMARK_FILE")
+SPIN_DURATION=$(yq -r '.camera_spin_duration' "$BENCHMARK_FILE")
 
 # Background load var
 BACKGROUND_LOAD=$(yq -r '.background_load' "$BENCHMARK_FILE")
@@ -37,9 +32,8 @@ git clone https://github.com/sched-ext/scx.git /tmp/scx || true
 export CARGO_TARGET_DIR=/tmp/scx_cargo_build_target
 mkdir -p "$CARGO_TARGET_DIR"
 
-# Device could "sleep", so wake it up
-echo mousemove 1000 0 | dotoolc
-sleep 5
+# Zoom out max + it wakes device if it's kind of sleep
+echo keydown pagedown | dotoolc && sleep 5 && echo keyup pagedown | dotoolc
 
 # Read the benchmark.yml file and process each entry
 yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
@@ -80,19 +74,19 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         ######################################################
         # Record benchmark data
-        sudo kill -CONT $(pgrep -f 'Cyberpunk2077.exe') # Resume the game
+        sudo kill -CONT $(pgrep -f 'bg3.exe') # Resume the game
         sleep 1
 
-        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc                    # Start recording
-        for i in $(seq 1 $SNAP_COUNT); do echo mousemove $MOUSE_MOVE 0 | dotoolc; sleep $SNAP_TIME; done # Snap mouse to the right, by 1000px, for 120 seconds
-        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc                    # Stop recording
+        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc        # Start recording
+        echo keydown delete | dotoolc && sleep $SPIN_DURATION && echo keyup delete | dotoolc # Rotate camera
+        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc        # Stop recording
 
         sleep 1
-        sudo kill -STOP $(pgrep -f 'Cyberpunk2077.exe') # Pause the game
+        sudo kill -STOP $(pgrep -f 'bg3.exe') # Pause the game
 
         sudo chmod -R 777 /tmp/mangohud_logs/
         rm -rf /tmp/mangohud_logs/*summary.csv
-        mv /tmp/mangohud_logs/Cyberpunk2077_*.csv /tmp/mangohud_logs/$run_filename
+        mv /tmp/mangohud_logs/bg3_*.csv /tmp/mangohud_logs/$run_filename
         ######################################################
 
         # Kill background load command

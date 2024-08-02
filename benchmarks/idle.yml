@@ -8,9 +8,7 @@
 #     - filename: lavd-defaults.csv  <- CSV filename that will be shown in FlightlessSomething
 #       scheduler: release/scx_lavd  <- Scheduler command to run (relative, target dir will be appended automatically). OPTIONAL - don't specify, so will not use (uses BORE)
 
-camera_snaps_time_between: 0.1 # seconds
-camera_snaps_count: 300        # time_between_camera_snaps * camera_snaps_count = total time of the benchmark (in seconds)
-camera_rotation_pixels: 1000   # pixels (find out with trial and error)
+camera_spin_duration: 120 # In seconds
 
 # Specify background load task
 #background_load: stress -c 8
