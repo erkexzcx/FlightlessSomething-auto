@@ -1,0 +1,43 @@
+camera_spin_duration: 10 # In seconds
+
+jobs:
+
+  - reset_to: origin/bpfland-next
+    build:
+      dir: scheds/rust/scx_bpfland/
+      cmd: cargo build --release
+    runs:
+      - filename: bpfland-next-__SCH__.csv
+        scheduler: release/scx_bpfland
+
+  - reset_to: origin/bpfland-next~1
+    build:
+      dir: scheds/rust/scx_bpfland/
+      cmd: cargo build --release
+    runs:
+      - filename: bpfland-next-__SCH__.csv
+        scheduler: release/scx_bpfland
+
+  - reset_to: origin/bpfland-next~2
+    build:
+      dir: scheds/rust/scx_bpfland/
+      cmd: cargo build --release
+    runs:
+      - filename: bpfland-next-__SCH__.csv
+        scheduler: release/scx_bpfland
+
+  - reset_to: origin/bpfland-next~3
+    build:
+      dir: scheds/rust/scx_bpfland/
+      cmd: cargo build --release
+    runs:
+      - filename: bpfland-next-__SCH__.csv
+        scheduler: release/scx_bpfland
+
+  - reset_to: origin/bpfland-next~4
+    build:
+      dir: scheds/rust/scx_bpfland/
+      cmd: cargo build --release
+    runs:
+      - filename: bpfland-next-__SCH__.csv
+        scheduler: release/scx_bpfland

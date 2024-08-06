@@ -1,0 +1,15 @@
+### Example:
+###
+# - reset_to: origin/main                   <- origin/<branch>, or origin/<branch>~<n> for n commits back, or commit hash (either short or full)
+#   build:
+#     dir: scheds/rust/scx_lavd/            <- directory in which to build, relative to the root of the repo
+#     cmd: cargo build --release            <- cargo build command
+#   runs:                                   <- you can specify multiple runs, using different CMDs (e.g. with and without scheduler args)
+#     - filename: lavd-defaults-__SCH__.csv <- CSV filename that will be shown in FlightlessSomething. __SCH__ will be replaced with Short Commit Hash
+#       scheduler: release/scx_lavd         <- Scheduler command to run (relative, target dir will be appended automatically). OPTIONAL - don't specify, so will not use (uses BORE)
+
+# Camera will spin in-game during benchmark. This also states the duration of the benchmark.
+camera_spin_duration: 120 # In seconds
+
+# Specify background load task (comment out if no background load is needed)
+#background_load: stress -c 8

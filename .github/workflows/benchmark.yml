@@ -9,10 +9,11 @@ on:
         default: 'all_idle.yml'
         type: choice
         options:
-          - bpfland.yml
           - all_busy.yml
           - erkexzcx.yml
           - all_idle.yml
+          - last_commits.yml
+          - specific_commits.yml
       description:
         description: 'Additional comment for this benchmark'
         required: true

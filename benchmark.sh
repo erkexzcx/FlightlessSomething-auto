@@ -55,6 +55,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     echo "\nReset to: $resetto"
     git --no-pager log -1 --pretty=format:"Full commit hash: %H%nShort commit hash: %h%nCommit message: %s%n%n" --abbrev-commit
 
+    # Extract Short Commit Hash
+    SCH=$(git --no-pager log -1 --pretty=format:"%h" --abbrev-commit)
+
     # Enter the build directory
     cd "$build_dir"
 
@@ -65,6 +68,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     echo "$benchmark" | yq -c '.runs[]' | while read -r run; do
         run_filename=$(echo "$run" | yq -r '.filename')
         run_scheduler=$(echo "$run" | yq -r '.scheduler')
+
+        # Template out filename
+        run_filename=$(echo "$run_filename" | sed "s/__SCH__/$SCH/g")
 
         # Execute scheduler in the background
         if [ -n "$run_scheduler" ] && [ "$run_scheduler" != "null" ]; then
