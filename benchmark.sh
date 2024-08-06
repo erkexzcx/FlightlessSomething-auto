@@ -51,6 +51,10 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Checkout the resetto
     git reset --hard "$resetto"
 
+    # Print information:
+    echo "\nReset to: $resetto"
+    git --no-pager log -1 --pretty=format:"Full commit hash: %H%nShort commit hash: %h%nCommit message: %s%n%n" --abbrev-commit
+
     # Enter the build directory
     cd "$build_dir"
 
