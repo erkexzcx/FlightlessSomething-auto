@@ -6,14 +6,13 @@ on:
       benchmark_file:
         description: 'Select benchmark definition file'
         required: true
-        default: 'idle.yml'
+        default: 'all_idle.yml'
         type: choice
         options:
-          - idle.yml
-          - busy.yml
-          - arighi.yml
-          - arighi_load.yml
+          - bpfland.yml
+          - all_busy.yml
           - erkexzcx.yml
+          - all_idle.yml
       description:
         description: 'Additional comment for this benchmark'
         required: true

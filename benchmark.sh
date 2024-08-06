@@ -37,8 +37,8 @@ echo keydown pagedown | dotoolc && sleep 5 && echo keyup pagedown | dotoolc
 
 # Read the benchmark.yml file and process each entry
 yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
-    # Extract branch, build directory, and build command
-    branch=$(echo "$benchmark" | yq -r '.branch')
+    # Extract reset_to, build directory, and build command
+    resetto=$(echo "$benchmark" | yq -r '.reset_to')
     build_dir=$(echo "$benchmark" | yq -r '.build.dir')
     build_cmd=$(echo "$benchmark" | yq -r '.build.cmd')
 
@@ -48,8 +48,8 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Fetch the latest changes
     git fetch origin
 
-    # Checkout the branch
-    git reset --hard "origin/$branch"
+    # Checkout the resetto
+    git reset --hard "$resetto"
 
     # Enter the build directory
     cd "$build_dir"

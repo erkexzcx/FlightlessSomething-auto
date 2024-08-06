@@ -2,7 +2,7 @@ camera_spin_duration: 60
 
 jobs:
 
-  - branch: main
+  - reset_to: origin/main
     build:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release

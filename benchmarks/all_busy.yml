@@ -1,6 +1,6 @@
 ### Example:
 ###
-# - branch: main                     <- branch name, from https://github.com/sched-ext/scx
+# - reset_to: origin/main            <- branch name or commit hash, from https://github.com/sched-ext/scx
 #   build:
 #     dir: scheds/rust/scx_lavd/     <- directory in which to build, relative to the root of the repo
 #     cmd: cargo build --release     <- cargo build command
@@ -8,14 +8,14 @@
 #     - filename: lavd-defaults.csv  <- CSV filename that will be shown in FlightlessSomething
 #       scheduler: release/scx_lavd  <- Scheduler command to run (relative, target dir will be appended automatically). OPTIONAL - don't specify, so will not use (uses BORE)
 
-camera_spin_duration: 300 # In seconds
+camera_spin_duration: 120 # In seconds
 
 # Specify background load task
-#background_load: stress -c 8
+background_load: stress -c 8
 
 jobs:
 
-  - branch: main
+  - reset_to: origin/main
     build:
       dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
@@ -27,7 +27,7 @@ jobs:
       # Test BORE this way (yes, don't specify "scheduler" and scheduler will not be used = BORE)
       - filename: BORE.csv
 
-  - branch: main
+  - reset_to: origin/main
     build:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
@@ -35,7 +35,7 @@ jobs:
       - filename: lavd-defaults.csv
         scheduler: release/scx_lavd
 
-  - branch: main
+  - reset_to: origin/main
     build:
       dir: scheds/rust/scx_rusty/
       cmd: cargo build --release
@@ -43,7 +43,7 @@ jobs:
       - filename: rusty-defaults.csv
         scheduler: release/scx_rusty
 
-  - branch: asdf
+  - reset_to: origin/asdf
     build:
       dir: scheds/rust/scx_asdf/
       cmd: cargo build --release
