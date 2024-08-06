@@ -52,8 +52,8 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     git reset --hard "$resetto"
 
     # Print information:
-    echo -e "\nReset to: $resetto"
-    git --no-pager log -1 --pretty=format:"Full commit hash: %H%nShort commit hash: %h%nCommit message: %s%n%n" --abbrev-commit
+    echo -e "\n>> Reset to: $resetto"
+    git --no-pager log -1 --pretty=format:">> Full commit hash: %H%n>> Short commit hash: %h%n>> Commit message: %s%n" --abbrev-commit
 
     # Extract Short Commit Hash
     SCH=$(git --no-pager log -1 --pretty=format:"%h" --abbrev-commit)
