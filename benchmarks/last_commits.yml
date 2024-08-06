@@ -1,4 +1,4 @@
-camera_spin_duration: 10 # In seconds
+camera_spin_duration: 300 # In seconds
 
 jobs:
 
