@@ -7,32 +7,32 @@ jobs:
       dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      - filename: bpfland-s500.csv
-        scheduler: release/scx_bpfland -s 500
-      - filename: bpfland-s1000.csv
-        scheduler: release/scx_bpfland -s 1000
-      - filename: bpfland-s2000.csv
-        scheduler: release/scx_bpfland -s 2000
-      - filename: bpfland-s4000.csv
-        scheduler: release/scx_bpfland -s 4000
-      - filename: bpfland-s8000.csv
-        scheduler: release/scx_bpfland -s 8000
-      - filename: bpfland-s16000.csv
-        scheduler: release/scx_bpfland -s 16000
-      - filename: bpfland-s20000.csv
-        scheduler: release/scx_bpfland -s 20000
+      # - filename: bpfland-s500.csv
+      #   scheduler: release/scx_bpfland -s 500
+      # - filename: bpfland-s1000.csv
+      #   scheduler: release/scx_bpfland -s 1000
+      # - filename: bpfland-s2000.csv
+      #   scheduler: release/scx_bpfland -s 2000
+      # - filename: bpfland-s4000.csv
+      #   scheduler: release/scx_bpfland -s 4000
+      # - filename: bpfland-s8000.csv
+      #   scheduler: release/scx_bpfland -s 8000
+      # - filename: bpfland-s16000.csv
+      #   scheduler: release/scx_bpfland -s 16000
+      # - filename: bpfland-s20000.csv
+      #   scheduler: release/scx_bpfland -s 20000
 
-      # - filename: bpfland-S50.csv
-      #   scheduler: release/scx_bpfland -S 50
-      # - filename: bpfland-S100.csv
-      #   scheduler: release/scx_bpfland -S 100
-      # - filename: bpfland-S200.csv
-      #   scheduler: release/scx_bpfland -S 200
-      # - filename: bpfland-S400.csv
-      #   scheduler: release/scx_bpfland -S 400
-      # - filename: bpfland-S800.csv
-      #   scheduler: release/scx_bpfland -S 800
-      # - filename: bpfland-S2000.csv
-      #   scheduler: release/scx_bpfland -S 2000
-      # - filename: bpfland-S2000.csv
-      #   scheduler: release/scx_bpfland -S 5000
+      - filename: bpfland-S50.csv
+        scheduler: release/scx_bpfland -S 50
+      - filename: bpfland-S100.csv
+        scheduler: release/scx_bpfland -S 100
+      - filename: bpfland-S200.csv
+        scheduler: release/scx_bpfland -S 200
+      - filename: bpfland-S400.csv
+        scheduler: release/scx_bpfland -S 400
+      - filename: bpfland-S800.csv
+        scheduler: release/scx_bpfland -S 800
+      - filename: bpfland-S2000.csv
+        scheduler: release/scx_bpfland -S 2000
+      - filename: bpfland-S2000.csv
+        scheduler: release/scx_bpfland -S 5000
