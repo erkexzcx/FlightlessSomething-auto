@@ -19,6 +19,8 @@ jobs:
         scheduler: release/scx_bpfland -s 8000
       - filename: bpfland-s16000.csv
         scheduler: release/scx_bpfland -s 16000
+      - filename: bpfland-s20000.csv
+        scheduler: release/scx_bpfland -s 20000
 
       # - filename: bpfland-S50.csv
       #   scheduler: release/scx_bpfland -S 50
