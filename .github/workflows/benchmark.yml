@@ -12,6 +12,8 @@ on:
           - all_busy.yml
           - erkexzcx.yml
           - all_idle.yml
+          - arighi1.yml
+          - arighi2.yml
           - last_commits.yml
           - specific_commits.yml
       description:
