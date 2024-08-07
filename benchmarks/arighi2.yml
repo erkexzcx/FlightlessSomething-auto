@@ -9,7 +9,7 @@ jobs:
       dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      - filename: bpfland-defaults.csv
+      - filename: bpfland-next.csv
         scheduler: release/scx_bpfland
 
   - reset_to: origin/main
@@ -17,5 +17,5 @@ jobs:
       dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      - filename: bpfland-defaults.csv
+      - filename: bpfland-main.csv
         scheduler: release/scx_bpfland
