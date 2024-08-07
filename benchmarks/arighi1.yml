@@ -4,18 +4,18 @@ camera_spin_duration: 600 # In seconds
 
 jobs:
 
-  - reset_to: origin/asdf
+  - reset_to: origin/bpfland-next
     build:
-      dir: scheds/rust/scx_asdf/
+      dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      - filename: asdf-defaults.csv
-        scheduler: release/scx_asdf
+      - filename: bpfland-next.csv
+        scheduler: release/scx_bpfland
 
   - reset_to: origin/main
     build:
       dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      - filename: bpfland-defaults.csv
+      - filename: bpfland-main.csv
         scheduler: release/scx_bpfland

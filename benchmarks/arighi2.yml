@@ -4,13 +4,13 @@ background_load: stress -c 8
 
 jobs:
 
-  - reset_to: origin/asdf
+  - reset_to: origin/bpfland-next
     build:
-      dir: scheds/rust/scx_asdf/
+      dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      - filename: asdf-defaults.csv
-        scheduler: release/scx_asdf
+      - filename: bpfland-defaults.csv
+        scheduler: release/scx_bpfland
 
   - reset_to: origin/main
     build:
