@@ -7,32 +7,53 @@ jobs:
       dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      # - filename: bpfland-s500.csv
-      #   scheduler: release/scx_bpfland -s 500
-      # - filename: bpfland-s1000.csv
-      #   scheduler: release/scx_bpfland -s 1000
-      # - filename: bpfland-s2000.csv
-      #   scheduler: release/scx_bpfland -s 2000
-      # - filename: bpfland-s4000.csv
-      #   scheduler: release/scx_bpfland -s 4000
-      # - filename: bpfland-s8000.csv
-      #   scheduler: release/scx_bpfland -s 8000
-      # - filename: bpfland-s16000.csv
-      #   scheduler: release/scx_bpfland -s 16000
-      # - filename: bpfland-s20000.csv
-      #   scheduler: release/scx_bpfland -s 20000
+     - filename: bpfland.csv
+       scheduler: release/scx_bpfland
 
-      - filename: bpfland-S50.csv
-        scheduler: release/scx_bpfland -S 50
-      - filename: bpfland-S100.csv
-        scheduler: release/scx_bpfland -S 100
-      - filename: bpfland-S200.csv
-        scheduler: release/scx_bpfland -S 200
-      - filename: bpfland-S400.csv
-        scheduler: release/scx_bpfland -S 400
-      - filename: bpfland-S800.csv
-        scheduler: release/scx_bpfland -S 800
-      - filename: bpfland-S2000.csv
-        scheduler: release/scx_bpfland -S 2000
-      - filename: bpfland-S2000.csv
-        scheduler: release/scx_bpfland -S 5000
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+     - filename: lavd.csv
+       scheduler: release/scx_lavd
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_layered/
+      cmd: cargo build --release
+    runs:
+     - filename: layered.csv
+       scheduler: release/scx_layered
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_mitosis/
+      cmd: cargo build --release
+    runs:
+     - filename: mitosis.csv
+       scheduler: release/scx_mitosis
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_rlfifo/
+      cmd: cargo build --release
+    runs:
+     - filename: rlfifo.csv
+       scheduler: release/scx_rlfifo
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_rustland/
+      cmd: cargo build --release
+    runs:
+     - filename: rustland.csv
+       scheduler: release/scx_rustland
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_rusty/
+      cmd: cargo build --release
+    runs:
+     - filename: rusty.csv
+       scheduler: release/scx_rusty
