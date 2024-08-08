@@ -8,7 +8,7 @@
 #     - filename: lavd-defaults.csv  <- CSV filename that will be shown in FlightlessSomething
 #       scheduler: release/scx_lavd  <- Scheduler command to run (relative, target dir will be appended automatically). OPTIONAL - don't specify, so will not use (uses BORE)
 
-camera_spin_duration: 300 # In seconds
+camera_spin_duration: 600 # In seconds
 
 # Specify background load task
 #background_load: stress -c 8
