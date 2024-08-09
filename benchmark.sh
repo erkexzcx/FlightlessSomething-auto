@@ -74,12 +74,12 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         # Execute scheduler in the background
         if [ -n "$run_scheduler" ] && [ "$run_scheduler" != "null" ]; then
-            eval "sudo $CARGO_TARGET_DIR/$run_scheduler" &
+            eval "sudo $CARGO_TARGET_DIR/$run_scheduler >/dev/null 2>&1" &
         fi
 
         # Execute background load command in the background
         if [ -n "$BACKGROUND_LOAD" ] && [ "$BACKGROUND_LOAD" != "null" ]; then
-            eval "$BACKGROUND_LOAD" &
+            eval "$BACKGROUND_LOAD >/dev/null 2>&1" &
         fi
 
         ######################################################

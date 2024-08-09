@@ -21,9 +21,9 @@ jobs:
       cmd: cargo build --release
     runs:
       - filename: bpfland-defaults.csv
-        scheduler: release/scx_bpfland >/dev/null 2>&1
+        scheduler: release/scx_bpfland
       - filename: bpfland-c0-t0-k.csv
-        scheduler: release/scx_bpfland -c 0 -t 0 -k >/dev/null 2>&1
+        scheduler: release/scx_bpfland -c 0 -t 0 -k
       # Test BORE this way (yes, don't specify "scheduler" and scheduler will not be used = BORE)
       - filename: BORE.csv
 
@@ -33,7 +33,7 @@ jobs:
       cmd: cargo build --release
     runs:
      - filename: rustland.csv
-       scheduler: release/scx_rustland >/dev/null 2>&1
+       scheduler: release/scx_rustland
 
   - reset_to: origin/main
     build:
@@ -41,7 +41,7 @@ jobs:
       cmd: cargo build --release
     runs:
       - filename: lavd-defaults.csv
-        scheduler: release/scx_lavd >/dev/null 2>&1
+        scheduler: release/scx_lavd
 
   - reset_to: origin/main
     build:
@@ -49,7 +49,7 @@ jobs:
       cmd: cargo build --release
     runs:
       - filename: rusty-defaults.csv
-        scheduler: release/scx_rusty >/dev/null 2>&1
+        scheduler: release/scx_rusty
 
   - reset_to: origin/asdf
     build:
@@ -57,4 +57,4 @@ jobs:
       cmd: cargo build --release
     runs:
       - filename: asdf-defaults.csv
-        scheduler: release/scx_asdf >/dev/null 2>&1
+        scheduler: release/scx_asdf
