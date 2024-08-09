@@ -9,6 +9,7 @@ jobs:
     runs:
      - filename: bpfland.csv
        scheduler: release/scx_bpfland
+     - filename: bore.csv
 
   - reset_to: origin/main
     build:
@@ -17,30 +18,6 @@ jobs:
     runs:
      - filename: lavd.csv
        scheduler: release/scx_lavd
-
-  - reset_to: origin/main
-    build:
-      dir: scheds/rust/scx_layered/
-      cmd: cargo build --release
-    runs:
-     - filename: layered.csv
-       scheduler: release/scx_layered
-
-  - reset_to: origin/main
-    build:
-      dir: scheds/rust/scx_mitosis/
-      cmd: cargo build --release
-    runs:
-     - filename: mitosis.csv
-       scheduler: release/scx_mitosis
-
-  - reset_to: origin/main
-    build:
-      dir: scheds/rust/scx_rlfifo/
-      cmd: cargo build --release
-    runs:
-     - filename: rlfifo.csv
-       scheduler: release/scx_rlfifo
 
   - reset_to: origin/main
     build:

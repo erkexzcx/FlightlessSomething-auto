@@ -29,6 +29,14 @@ jobs:
 
   - reset_to: origin/main
     build:
+      dir: scheds/rust/scx_rustland/
+      cmd: cargo build --release
+    runs:
+     - filename: rustland.csv
+       scheduler: release/scx_rustland
+
+  - reset_to: origin/main
+    build:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
     runs:
