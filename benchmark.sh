@@ -52,7 +52,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     git reset --hard "$resetto"
 
     # Print information:
-    echo -e "\n>> Reset to: $resetto"
+    echo -e "\n>> Reset to: $resetto\n>> Scheduler: $run_scheduler\n>> background_load: $BACKGROUND_LOAD"
     git --no-pager log -1 --pretty=format:">> Full commit hash: %H%n>> Short commit hash: %h%n>> Commit message: %s%n" --abbrev-commit
 
     # Extract Short Commit Hash
@@ -74,12 +74,12 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         # Execute scheduler in the background
         if [ -n "$run_scheduler" ] && [ "$run_scheduler" != "null" ]; then
-            eval "sudo $CARGO_TARGET_DIR/$run_scheduler >/dev/null 2>&1" &
+            eval "sudo $CARGO_TARGET_DIR/$run_scheduler" &
         fi
 
         # Execute background load command in the background
         if [ -n "$BACKGROUND_LOAD" ] && [ "$BACKGROUND_LOAD" != "null" ]; then
-            eval "$BACKGROUND_LOAD >/dev/null 2>&1" &
+            eval "$BACKGROUND_LOAD" &
         fi
 
         ######################################################
