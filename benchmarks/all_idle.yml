@@ -24,8 +24,6 @@ jobs:
         scheduler: release/scx_bpfland
       - filename: bpfland-c0-t0-k.csv
         scheduler: release/scx_bpfland -c 0 -t 0 -k
-      # Test BORE this way (yes, don't specify "scheduler" and scheduler will not be used = BORE)
-      - filename: BORE.csv
 
   - reset_to: origin/main
     build:
