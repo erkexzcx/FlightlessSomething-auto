@@ -27,5 +27,5 @@ jobs:
       dir: scheds/rust/scx_asdf/
       cmd: cargo build --release
     runs:
-      - filename: asdf-defaults.csv
+      - filename: asdf.csv
         scheduler: release/scx_asdf
