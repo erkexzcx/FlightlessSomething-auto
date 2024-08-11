@@ -9,7 +9,8 @@ jobs:
     runs:
      - filename: bpfland.csv
        scheduler: release/scx_bpfland
-     - filename: bore.csv
+      - filename: bpfland-c0-t0-k.csv
+        scheduler: release/scx_bpfland -c 0 -t 0 -k
 
   - reset_to: origin/main
     build:
@@ -18,19 +19,13 @@ jobs:
     runs:
      - filename: lavd.csv
        scheduler: release/scx_lavd
+     - filename: lavd-nocc.csv
+       scheduler: release/scx_lavd --no-core-compaction
 
-  - reset_to: origin/main
+  - reset_to: origin/asdf
     build:
-      dir: scheds/rust/scx_rustland/
+      dir: scheds/rust/scx_asdf/
       cmd: cargo build --release
     runs:
-     - filename: rustland.csv
-       scheduler: release/scx_rustland
-
-  - reset_to: origin/main
-    build:
-      dir: scheds/rust/scx_rusty/
-      cmd: cargo build --release
-    runs:
-     - filename: rusty.csv
-       scheduler: release/scx_rusty
+      - filename: asdf-defaults.csv
+        scheduler: release/scx_asdf
