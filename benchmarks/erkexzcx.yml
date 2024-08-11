@@ -7,8 +7,8 @@ jobs:
       dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-     - filename: bpfland.csv
-       scheduler: release/scx_bpfland
+      - filename: bpfland.csv
+        scheduler: release/scx_bpfland
       - filename: bpfland-c0-t0-k.csv
         scheduler: release/scx_bpfland -c 0 -t 0 -k
 
@@ -17,10 +17,10 @@ jobs:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
     runs:
-     - filename: lavd.csv
-       scheduler: release/scx_lavd
-     - filename: lavd-nocc.csv
-       scheduler: release/scx_lavd --no-core-compaction
+      - filename: lavd.csv
+        scheduler: release/scx_lavd
+      - filename: lavd-nocc.csv
+        scheduler: release/scx_lavd --no-core-compaction
 
   - reset_to: origin/asdf
     build:
