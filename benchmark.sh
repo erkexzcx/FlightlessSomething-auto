@@ -57,10 +57,6 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         git reset --hard "$resetto"
     fi
 
-    # Print information:
-    echo -e "\n>> Reset to: $resetto\n>> Scheduler: $run_scheduler\n>> background_load: $BACKGROUND_LOAD"
-    git --no-pager log -1 --pretty=format:">> Full commit hash: %H%n>> Short commit hash: %h%n>> Commit message: %s%n" --abbrev-commit
-
     # Extract Short Commit Hash
     SCH=$(git --no-pager log -1 --pretty=format:"%h" --abbrev-commit)
 
@@ -74,6 +70,10 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     echo "$benchmark" | yq -c '.runs[]' | while read -r run; do
         run_filename=$(echo "$run" | yq -r '.filename')
         run_scheduler=$(echo "$run" | yq -r '.scheduler')
+
+        # Print information:
+        echo -e "\n>> Reset to: $resetto\n>> Scheduler: $run_scheduler\n>> background_load: $BACKGROUND_LOAD"
+        git --no-pager log -1 --pretty=format:">> Full commit hash: %H%n>> Short commit hash: %h%n>> Commit message: %s%n" --abbrev-commit
 
         # Template out filename
         run_filename=$(echo "$run_filename" | sed "s/__SCH__/$SCH/g")
