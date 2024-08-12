@@ -32,7 +32,7 @@ git clone https://github.com/sched-ext/scx.git /tmp/scx || true
 export CARGO_TARGET_DIR=/tmp/scx_cargo_build_target
 mkdir -p "$CARGO_TARGET_DIR"
 
-# Zoom out max + it wakes device if it's kind of sleep
+# Zoom out max + it wakes device if it's kind of asleep
 echo keydown pagedown | dotoolc && sleep 5 && echo keyup pagedown | dotoolc
 
 # Read the benchmark.yml file and process each entry
