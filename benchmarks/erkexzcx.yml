@@ -4,28 +4,16 @@ jobs:
 
   - reset_to: origin/main
     build:
-      dir: scheds/rust/scx_bpfland/
+      dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
     runs:
-      - filename: bpfland.csv
-        scheduler: release/scx_bpfland
-      - filename: bpfland-c0-t0-k.csv
-        scheduler: release/scx_bpfland -c 0 -t 0 -k
+      - filename: lavd-main.csv
+        scheduler: release/scx_lavd
 
-  - reset_to: origin/main
+  - reset_to: pr/489
     build:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
     runs:
-      - filename: lavd.csv
+      - filename: lavd-pr489.csv
         scheduler: release/scx_lavd
-      - filename: lavd-nocc.csv
-        scheduler: release/scx_lavd --no-core-compaction
-
-  - reset_to: origin/asdf
-    build:
-      dir: scheds/rust/scx_asdf/
-      cmd: cargo build --release
-    runs:
-      - filename: asdf.csv
-        scheduler: release/scx_asdf

@@ -1,6 +1,6 @@
 ### Example:
 ###
-# - reset_to: origin/main                   <- origin/<branch>, or origin/<branch>~<n> for n commits back, or commit hash (either short or full)
+# - reset_to: origin/main                   <- 'origin/<branch>', 'origin/<branch>~<n>' for n commits back, '<commit_id>' (short or full), 'pr/<pr_id>'
 #   build:
 #     dir: scheds/rust/scx_lavd/            <- directory in which to build, relative to the root of the repo
 #     cmd: cargo build --release            <- cargo build command

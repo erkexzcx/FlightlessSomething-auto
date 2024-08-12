@@ -48,8 +48,14 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Fetch the latest changes
     git fetch origin
 
-    # Checkout the resetto
-    git reset --hard "$resetto"
+    # Handle PRs differently
+    if [[ "$resetto" =~ ^pr/[0-9]+$ ]]; then
+        PR_NUMBER=${resetto#pr/}
+        git fetch origin pull/$PR_NUMBER/head:pr-$PR_NUMBER
+        git reset --hard pr-$PR_NUMBER
+    else
+        git reset --hard "$resetto"
+    fi
 
     # Print information:
     echo -e "\n>> Reset to: $resetto\n>> Scheduler: $run_scheduler\n>> background_load: $BACKGROUND_LOAD"
