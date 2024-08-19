@@ -2,12 +2,20 @@ camera_spin_duration: 600 # In seconds
 
 jobs:
 
-  - reset_to: pr/489
+  - reset_to: pr/508
     build:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
     runs:
-      - filename: lavd-pr489.csv
+      - filename: lavd-pr508.csv
+        scheduler: release/scx_lavd
+
+  - reset_to: pr/507
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-pr507.csv
         scheduler: release/scx_lavd
 
   - reset_to: origin/main
