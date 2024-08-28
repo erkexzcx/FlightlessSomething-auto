@@ -20,6 +20,13 @@ on:
         description: 'Additional comment for this benchmark'
         required: true
         default: 'Manually triggered benchmark'
+      noupload:
+        description: "(Advanced) Check to disable auto upload"
+        type: choice
+        default: 'false'
+        options:
+          - 'false'
+          - 'true'
 
 jobs:
   benchmark:
@@ -51,6 +58,15 @@ jobs:
           ls -l /tmp/mangohud_logs/*
 
       - name: Upload benchmark to FlightlessSomething auto
+        if: ${{ inputs.noupload == 'false' }}
         run: |
           JOBURL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }} "$JOBURL" "${{ github.event.inputs.description }}"
+
+      - name: Copy benchmark to persistent storage
+        if: ${{ inputs.noupload == 'true' }}
+        run: |
+          ts=$(date +%s)
+          echo "/home/deck/persistent_runs/$ts"
+          sudo mkdir -p /home/deck/persistent_runs/
+          sudo cp -r /tmp/mangohud_logs/*.csv "/home/deck/persistent_runs/$ts/"
