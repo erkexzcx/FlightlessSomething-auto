@@ -7,4 +7,5 @@ jobs:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
     runs:
-      - filename: eevdf.csv
+      - filename: lavd.csv
+        scheduler: release/scx_lavd
