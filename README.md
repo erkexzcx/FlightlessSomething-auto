@@ -69,7 +69,7 @@ log_interval=0
 toggle_logging=Shift_L+F2
 ```
 
-Now do `mkdir -p /tmp/mangohud_logs` and try to launch your game manually with MangoHud. Do a short recording and find recorded logs in `/tmp/mangohud_logs`. Inspect their name. In my case, Baldurs Gate 3 executable is `bg3.exe`, logs start with `bg3_` so they keyword here is `bg3`. Do "Search in Files" and replace this occurance everywhere in this project's files (as it is hardcoded in multiple places, at least for now).
+Now do `mkdir -p /tmp/mangohud_logs` and try to launch your game manually with MangoHud. Do a short recording and find recorded logs in `/tmp/mangohud_logs`. Inspect their name. In my case, Baldurs Gate 3 executable is `bg3_dx11.exe`, logs start with `bg3_` so they keyword here is `bg3`. Do "Search in Files" and replace this occurance everywhere in this project's files (as it is hardcoded in multiple places, at least for now).
 
 ## Before a test run...
 
@@ -90,7 +90,7 @@ Go to https://github.com/erkexzcx/FlightlessSomething-auto/actions, on the left 
 
 Now the conditions:
 1. Game can be frozen or unfrozen for a startup
-2. Game must not be in recording state. If it's in recording state - manually stop with command `echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc`. If says permission not available for dotool, prior that issue `sudo chown $USER /tmp/dotool-pipe` and re-try. If game is frozen and in recording state, first you need to unfreze it with `sudo kill -CONT $(pgrep -f 'bg3.exe')`.
+2. Game must not be in recording state. If it's in recording state - manually stop with command `echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc`. If says permission not available for dotool, prior that issue `sudo chown $USER /tmp/dotool-pipe` and re-try. If game is frozen and in recording state, first you need to unfreze it with `sudo kill -CONT $(pgrep -f 'bg3_dx11.exe')`.
 
 ## Troubleshooting commands cheat-sheet
 
@@ -101,13 +101,13 @@ Now the conditions:
 sudo chown $USER /tmp/dotool-pipe
 
 # Resume game
-sudo kill -CONT $(pgrep -f 'bg3.exe')
+sudo kill -CONT $(pgrep -f 'bg3_dx11.exe')
 
 # Start/Stop MangoHud recording
 echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc
 
 # Freeze game
-sudo kill -STOP $(pgrep -f 'bg3.exe')
+sudo kill -STOP $(pgrep -f 'bg3_dx11.exe')
 ```
 
 Also, on each boot, from `deck` user:
