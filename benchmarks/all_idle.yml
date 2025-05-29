@@ -9,8 +9,14 @@ jobs:
     runs:
       - filename: bpfland-defaults.csv
         scheduler: release/scx_bpfland
-      - filename: bpfland-c0-t0-k.csv
-        scheduler: release/scx_bpfland -c 0 -t 0 -k
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_flash/
+      cmd: cargo build --release
+    runs:
+      - filename: flash-defaults.csv
+        scheduler: release/scx_flash
 
   - reset_to: origin/main
     build:
