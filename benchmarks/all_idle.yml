@@ -15,6 +15,14 @@ jobs:
 
   - reset_to: origin/main
     build:
+      dir: scheds/rust/scx_rustland/
+      cmd: cargo build --release
+    runs:
+      - filename: rustland-defaults.csv
+        scheduler: release/scx_rustland
+
+  - reset_to: origin/main
+    build:
       dir: scheds/rust/scx_flash/
       cmd: cargo build --release
     runs:
