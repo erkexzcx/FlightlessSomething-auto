@@ -33,11 +33,3 @@ jobs:
     runs:
       - filename: rusty-defaults.csv
         scheduler: release/scx_rusty
-
-  - reset_to: origin/asdf
-    build:
-      dir: scheds/rust/scx_asdf/
-      cmd: cargo build --release
-    runs:
-      - filename: asdf-defaults.csv
-        scheduler: release/scx_asdf
