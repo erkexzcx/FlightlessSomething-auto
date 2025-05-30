@@ -69,7 +69,7 @@ log_interval=0
 toggle_logging=Shift_L+F2
 ```
 
-Now do `mkdir -p /tmp/mangohud_logs` and try to launch your game manually with MangoHud. Do a short recording and find recorded logs in `/tmp/mangohud_logs`. Inspect their name. In my case, Baldurs Gate 3 executable is `ForzaHorizon5.exe`, logs start with `bg3_` so they keyword here is `bg3`. Do "Search in Files" and replace this occurance everywhere in this project's files (as it is hardcoded in multiple places, at least for now).
+Now do `mkdir -p /tmp/mangohud_logs` and try to launch your game manually with MangoHud. Do a short recording and find recorded logs in `/tmp/mangohud_logs`. Inspect their name. In my case, Baldurs Gate 3 executable is `ForzaHorizon5.exe`, logs start with `fh5_` so they keyword here is `fh5`. Do "Search in Files" and replace this occurance everywhere in this project's files (as it is hardcoded in multiple places, at least for now).
 
 ## Before a test run...
 
