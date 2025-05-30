@@ -104,6 +104,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         if [ -n "$BACKGROUND_LOAD" ] && [ "$BACKGROUND_LOAD" != "null" ]; then
             eval "$BACKGROUND_LOAD" &
         fi
+        
+        # Assuming each cycle takes ~0.2 seconds (0.1 + 0.1 sleep)
+        cycles=$((SPIN_DURATION * 5))
 
         ######################################################
         # Record benchmark data
@@ -111,7 +114,15 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sleep 1
 
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc        # Start recording
-        echo keydown delete | dotoolc && sleep $SPIN_DURATION && echo keyup delete | dotoolc # Rotate camera
+
+        # Rotate camera in all directions for $SPIN_DURATION duration
+        for ((i = 0; i < cycles; i++)); do
+            for direction in up left down right; do
+                echo keydown $direction | dotoolc && sleep 0.1 && echo keyup $direction | dotoolc
+                sleep 0.1
+            done
+        done
+
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc        # Stop recording
 
         sleep 1
