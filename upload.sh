@@ -36,7 +36,7 @@ curl_command=(
   curl -i "$BASE_URL/benchmark"
   -X POST
   -H "Cookie: mysession=$MYSESSION"
-  -F "title=Automated FH5 benchmark at $TIMESTAMP"
+  -F "title=Automated FH5 benchmark"
   -F "description=Automated Forza Horizon 5 benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
 )
 
