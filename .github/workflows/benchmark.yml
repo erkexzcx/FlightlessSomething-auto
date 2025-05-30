@@ -33,19 +33,6 @@ jobs:
     name: BG3 benchmark, ${{ github.event.inputs.benchmark_file }}, ${{ github.event.inputs.description }}
     runs-on: [self-hosted, Linux, X64, steam-deck]
     steps:
-
-      - name: Check if game is not running
-        run: pgrep -f 'bg3.exe' > /dev/null
-
-      - name: Ensure dotool pipe has needed permissions
-        run: sudo chown $USER /tmp/dotool-pipe
-
-      - name: Ensure /tmp/mangohud_logs exist and is empty
-        run: |
-          sudo rm -rf /tmp/mangohud_logs
-          sudo mkdir -p /tmp/mangohud_logs
-          sudo chmod -R 777 /tmp/mangohud_logs/
-
       - name: Download this repo
         uses: actions/checkout@v4
 
