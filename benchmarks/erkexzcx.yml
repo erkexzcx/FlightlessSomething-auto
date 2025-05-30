@@ -1,4 +1,6 @@
-camera_spin_duration: 600 # In seconds
+# just testing here...
+
+camera_spin_duration: 15 # In seconds
 
 jobs:
 
@@ -8,20 +10,4 @@ jobs:
       cmd: cargo build --release
     runs:
       - filename: bpfland-defaults-run1.csv
-        scheduler: release/scx_bpfland
-
-  - reset_to: origin/main
-    build:
-      dir: scheds/rust/scx_bpfland/
-      cmd: cargo build --release
-    runs:
-      - filename: bpfland-defaults-run2.csv
-        scheduler: release/scx_bpfland
-
-  - reset_to: origin/main
-    build:
-      dir: scheds/rust/scx_bpfland/
-      cmd: cargo build --release
-    runs:
-      - filename: bpfland-defaults-run3.csv
         scheduler: release/scx_bpfland
