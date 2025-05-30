@@ -105,19 +105,17 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
             eval "$BACKGROUND_LOAD" &
         fi
         
-        # Assuming each cycle takes ~0.2 seconds (0.1 + 0.1 sleep)
-        cycles=$((SPIN_DURATION * 5))
-        echo "Will do $cycles cycles of camera rotation"
-
         ######################################################
         # Record benchmark data
         #sudo kill -CONT $(pgrep -f 'ForzaHorizon5.exe') # Resume the game
         sleep 1
 
+        start_time=$(date +%s)
+
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc        # Start recording
 
         # Rotate camera in all directions for $SPIN_DURATION duration
-        for ((i = 0; i < cycles; i++)); do
+        while (( $(date +%s) - start_time < SPIN_DURATION )); do
             for direction in up left down right; do
                 echo keydown $direction | dotoolc && sleep 0.1 && echo keyup $direction | dotoolc
                 sleep 0.1
