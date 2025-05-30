@@ -9,6 +9,12 @@ if ! command -v yq &> /dev/null; then
     exit 1
 fi
 
+# Check if dotoolc command exists
+if ! command -v dotoolc &> /dev/null; then
+    echo "dotool could not be found. Please install dotool."
+    exit 1
+fi
+
 # Path to the benchmark yml file
 BENCHMARK_FILE=$1
 
@@ -16,6 +22,17 @@ if [ -z "$BENCHMARK_FILE" ]; then
     echo "Usage: $0 <path_to_benchmark.yml>"
     exit 1
 fi
+
+# Ensure we have needed permissions
+sudo chown $USER /tmp/dotool-pipe
+
+# Ensure cleanup is done
+sudo rm -rf /tmp/mangohud_logs
+sudo mkdir -p /tmp/mangohud_logs
+sudo chmod -R 777 /tmp/mangohud_logs/
+
+# Ensure game is running
+pgrep -f 'bg3.exe' > /dev/null
 
 # Extract some root variables from the benchmark yml file
 SPIN_DURATION=$(yq -r '.camera_spin_duration' "$BENCHMARK_FILE")
