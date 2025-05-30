@@ -1,5 +1,3 @@
-# just testing here...
-
 camera_spin_duration: 15 # In seconds
 
 jobs:
@@ -9,5 +7,48 @@ jobs:
       dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      - filename: bpfland-defaults-run1.csv
+      - filename: bpfland-defaults.csv
         scheduler: release/scx_bpfland
+
+      # Empty like this - just won't start anything, so eventually uses BORE :)
+      - filename: bore.csv
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_rustland/
+      cmd: cargo build --release
+    runs:
+      - filename: rustland-defaults.csv
+        scheduler: release/scx_rustland
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_flash/
+      cmd: cargo build --release
+    runs:
+      - filename: flash-defaults.csv
+        scheduler: release/scx_flash
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults.csv
+        scheduler: release/scx_lavd
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_rusty/
+      cmd: cargo build --release
+    runs:
+      - filename: rusty-defaults.csv
+        scheduler: release/scx_rusty
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_p2dq/
+      cmd: cargo build --release
+    runs:
+      - filename: p2dq-defaults.csv
+        scheduler: release/scx_p2dq
