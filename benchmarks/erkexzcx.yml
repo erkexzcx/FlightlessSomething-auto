@@ -4,8 +4,24 @@ jobs:
 
   - reset_to: origin/main
     build:
-      dir: scheds/rust/scx_lavd/
+      dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      - filename: lavd.csv
-        scheduler: release/scx_lavd
+      - filename: bpfland-defaults.csv
+        scheduler: release/scx_bpfland
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_bpfland/
+      cmd: cargo build --release
+    runs:
+      - filename: bpfland-defaults.csv
+        scheduler: release/scx_bpfland
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_bpfland/
+      cmd: cargo build --release
+    runs:
+      - filename: bpfland-defaults.csv
+        scheduler: release/scx_bpfland
