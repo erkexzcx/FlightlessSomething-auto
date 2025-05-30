@@ -116,7 +116,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         # Rotate camera in all directions for $SPIN_DURATION duration
         while (( $(date +%s) - start_time < SPIN_DURATION )); do
-            for direction in up left down right; do
+            for direction in left down right; do
                 echo keydown $direction | dotoolc && sleep 0.1 && echo keyup $direction | dotoolc
                 sleep 0.1
             done
