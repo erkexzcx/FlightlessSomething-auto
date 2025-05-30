@@ -35,7 +35,7 @@ jobs:
     steps:
 
       - name: Check if game is not running
-        run: pgrep -f 'bg3_dx11.exe' > /dev/null
+        run: pgrep -f 'bg3.exe' > /dev/null
 
       - name: Ensure dotool pipe has needed permissions
         run: sudo chown $USER /tmp/dotool-pipe
