@@ -32,7 +32,7 @@ sudo mkdir -p /tmp/mangohud_logs
 sudo chmod -R 777 /tmp/mangohud_logs/
 
 # Ensure game is running
-pgrep -f 'bg3.exe' > /dev/null
+pgrep -f 'ForzaHorizon5.exe' > /dev/null
 
 # Extract some root variables from the benchmark yml file
 SPIN_DURATION=$(yq -r '.camera_spin_duration' "$BENCHMARK_FILE")
@@ -107,7 +107,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         ######################################################
         # Record benchmark data
-        sudo kill -CONT $(pgrep -f 'bg3.exe') # Resume the game
+        sudo kill -CONT $(pgrep -f 'ForzaHorizon5.exe') # Resume the game
         sleep 1
 
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc        # Start recording
@@ -115,11 +115,11 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc        # Stop recording
 
         sleep 1
-        sudo kill -STOP $(pgrep -f 'bg3.exe') # Pause the game
+        sudo kill -STOP $(pgrep -f 'ForzaHorizon5.exe') # Pause the game
 
         sudo chmod -R 777 /tmp/mangohud_logs/
         rm -rf /tmp/mangohud_logs/*summary.csv
-        mv /tmp/mangohud_logs/bg3_*.csv /tmp/mangohud_logs/$run_filename
+        mv /tmp/mangohud_logs/ForzaHorizon5_*.csv /tmp/mangohud_logs/$run_filename
         ######################################################
 
         # Kill background load command
