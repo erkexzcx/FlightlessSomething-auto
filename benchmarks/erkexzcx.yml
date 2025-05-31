@@ -1,16 +1,308 @@
-camera_spin_duration: 300 # In seconds
+camera_spin_duration: 120 # In seconds
 
 jobs:
-
-  - reset_to: 95c255934be26fcbd994de33616d4ca81a5c4b94
+  - reset_to: c7c1abdd
     build:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
     runs:
       - filename: lavd-defaults-__SCH__.csv
         scheduler: release/scx_lavd
-
-  - reset_to: 35937bde61230f3992084d25c4d58f95cdb99641
+  - reset_to: 90cb5ac8
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: e1a0b0c4
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 8fd920cf
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: b785d3a3
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 791b5b1e
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 4720a6af
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 1bb65bc2
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: ba323c72
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 5206d608
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: d309bf95
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 22057be2
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: cc61c077
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: c5e3cfa6
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 5f482025
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: ed14a4ca
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 8b053dd5
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: e9ba2d53
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: e1b880f7
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 4f694773
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 2fd395bb
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 7fbef2aa
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 95e2f4da
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: f490a55d
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 2f8cc0d6
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 0b6ebf82
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 4f906f1f
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 906d0547
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 0656c323
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: c1cf11f7
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 5e194330
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: f71fff9b
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 90b57a3f
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 6f10d690
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 51334b5c
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: c72e0636
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 99960ad9
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 753f333c
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 4cba06dc
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 68928984
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: ba52cc13
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 0ea1aab0
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 8860f26f
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+  - reset_to: 47e7238b
     build:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
