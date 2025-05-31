@@ -62,6 +62,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Change to the temporary directory
     cd "/tmp/scx"
 
+    # Fix git behavior?
+    git config --global --add safe.directory /tmp/scx
+
     # Fetch the latest changes
     git fetch origin
 
