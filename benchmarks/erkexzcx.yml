@@ -2,7 +2,7 @@ camera_spin_duration: 300 # In seconds
 
 jobs:
 
-  - reset_to: ea5b2b9
+  - reset_to: 95c255934be26fcbd994de33616d4ca81a5c4b94
     build:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
@@ -10,7 +10,7 @@ jobs:
       - filename: lavd-defaults-__SCH__.csv
         scheduler: release/scx_lavd
 
-  - reset_to: 35937bd
+  - reset_to: 35937bde61230f3992084d25c4d58f95cdb99641
     build:
       dir: scheds/rust/scx_lavd/
       cmd: cargo build --release
