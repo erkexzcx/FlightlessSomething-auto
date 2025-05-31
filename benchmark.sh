@@ -65,15 +65,13 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Fix git behavior?
     git config --global --add safe.directory /tmp/scx
 
-    # Fetch the latest changes
-    git fetch origin
-
     # Handle PRs differently
     if [[ "$resetto" =~ ^pr/[0-9]+$ ]]; then
         PR_NUMBER=${resetto#pr/}
         git fetch origin pull/$PR_NUMBER/head:pr-$PR_NUMBER
         git reset --hard pr-$PR_NUMBER
     else
+        git fetch origin
         git reset --hard "$resetto"
     fi
 
