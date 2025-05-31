@@ -31,6 +31,10 @@ fi
 # Generate a Unix timestamp
 TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
+# Debug information
+echo "title: Automated FH5 benchmark"
+echo "description: Automated Forza Horizon 5 benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
+
 # Start constructing the curl command
 curl_command=(
   curl -i "$BASE_URL/benchmark"
@@ -43,6 +47,7 @@ curl_command=(
 # Loop over all CSV files in the specified directory
 for file in "$DIRECTORY"/*.csv; do
   curl_command+=(-F "files=@$file")
+  echo "Adding file: $file"
 done
 
 # Execute the constructed curl command and capture the response
