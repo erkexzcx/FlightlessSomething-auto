@@ -2,12 +2,18 @@ camera_spin_duration: 300 # In seconds
 
 jobs:
 
-  # Test error % between 3 identical runs
-  - reset_to: origin/main
+  - reset_to: ea5b2b9
     build:
-      dir: scheds/rust/scx_bpfland/
-      cmd: echo
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
     runs:
-      - filename: run1.csv
-      - filename: run2.csv
-      - filename: run3.csv
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
+
+  - reset_to: 35937bd
+    build:
+      dir: scheds/rust/scx_lavd/
+      cmd: cargo build --release
+    runs:
+      - filename: lavd-defaults-__SCH__.csv
+        scheduler: release/scx_lavd
