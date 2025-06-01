@@ -98,6 +98,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Execute the build command
     eval "$build_cmd"
 
+    # Wake up the OS (e.g screen is black right now and mangohud record shortcut wouldn't be picked otherwise)
+    echo mousemove 100 0 | dotoolc
+
     # Iterate over each run
     echo "$benchmark" | yq -c '.runs[]' | while read -r run; do
         run_filename=$(echo "$run" | yq -r '.filename')
@@ -127,7 +130,6 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sleep 1
         start_time=$(date +%s)
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Start recording
-        sleep 0.2
 
         # Rotate camera in all directions for $SPIN_DURATION duration
         while (( $(date +%s) - start_time < SPIN_DURATION )); do
@@ -137,7 +139,6 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
             done
         done
 
-        sleep 0.2
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
         sleep 1
 
