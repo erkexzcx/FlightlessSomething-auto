@@ -32,16 +32,16 @@ fi
 TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
 # Debug information
-echo "title: Automated FH5 benchmark"
-echo "description: Automated Forza Horizon 5 benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
+echo "title: Automated Satisfactory benchmark"
+echo "description: Automated Satisfactory benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
 
 # Start constructing the curl command
 curl_command=(
   curl -i "$BASE_URL/benchmark"
   -X POST
   -H "Cookie: mysession=$MYSESSION"
-  -F "title=Automated FH5 benchmark"
-  -F "description=Automated Forza Horizon 5 benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
+  -F "title=Automated Satisfactory benchmark"
+  -F "description=Automated Satisfactory benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
 )
 
 # Loop over all CSV files in the specified directory

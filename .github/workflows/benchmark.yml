@@ -1,4 +1,4 @@
-name: Benchmark FH5
+name: Benchmark Satisfactory
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ on:
 
 jobs:
   benchmark:
-    name: FH5 benchmark, ${{ github.event.inputs.benchmark_file }}, ${{ github.event.inputs.description }}
+    name: Satisfactory benchmark, ${{ github.event.inputs.benchmark_file }}, ${{ github.event.inputs.description }}
     runs-on: [self-hosted, Linux, X64, steam-deck]
     steps:
       - name: Download this repo
