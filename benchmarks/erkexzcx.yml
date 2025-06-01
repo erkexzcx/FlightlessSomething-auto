@@ -6,5 +6,9 @@ jobs:
       dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      - filename: bpfland-defaults-__SCH__.csv
+      - filename: bpfland-defaults-__SCH__-1.csv
+        scheduler: release/scx_bpfland
+      - filename: bpfland-defaults-__SCH__-2.csv
+        scheduler: release/scx_bpfland
+      - filename: bpfland-defaults-__SCH__-3.csv
         scheduler: release/scx_bpfland
