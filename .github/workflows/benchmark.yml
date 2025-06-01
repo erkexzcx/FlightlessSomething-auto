@@ -51,8 +51,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Perform benchmark
+      - name: Benchmark game
         run: bash benchmark.sh "benchmarks/${{ github.event.inputs.benchmark_file }}"
 
-      - name: Upload benchmark to FlightlessSomething auto
+      - name: Upload results
         run: bash upload.sh
