@@ -105,7 +105,7 @@ sudo chown $USER /tmp/dotool-pipe
 sudo kill -CONT $(pgrep -f "$GAME_EXEC")
 
 # Start/Stop MangoHud recording
-echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc
+echo keydown shift+f2 | dotoolc && sleep 0.3 && echo keyup shift+f2 | dotoolc
 
 # Freeze game
 sudo kill -STOP $(pgrep -f "$GAME_EXEC")
