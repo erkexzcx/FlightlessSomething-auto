@@ -38,9 +38,6 @@ sudo mkdir -p "${BENCHMARKS_DIR}"
 sudo rm -rf "${BENCHMARKS_DIR}/*"
 sudo chmod -R 777 "${BENCHMARKS_DIR}"
 
-# Fix git behavior?
-
-
 # Clone the repository
 git config --global --add safe.directory "${SCX_DIR}"
 git clone https://github.com/sched-ext/scx.git "${SCX_DIR}" || true
