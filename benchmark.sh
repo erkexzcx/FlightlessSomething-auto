@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set the game executable filename here
+GAME_EXEC="FactoryGameSteam-Win64-Shipping.exe"
+
 # Exit immediately on error
 set -e
 
@@ -32,7 +35,7 @@ sudo mkdir -p /tmp/mangohud_logs
 sudo chmod -R 777 /tmp/mangohud_logs/
 
 # Ensure game is running
-pgrep -f 'FactoryGameSteam-Win64-Shipping.exe' > /dev/null
+pgrep -f "${GAME_EXEC}" > /dev/null
 
 # Extract some root variables from the benchmark yml file
 SPIN_DURATION=$(yq -r '.camera_spin_duration' "$BENCHMARK_FILE")
@@ -108,7 +111,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         
         ######################################################
         # Record benchmark data
-        sudo kill -CONT $(pgrep -f 'FactoryGameSteam-Win64-Shipping.exe') # Resume the game
+        sudo kill -CONT $(pgrep -f "${GAME_EXEC}") # Resume the game
         sleep 1
 
         start_time=$(date +%s)
@@ -126,11 +129,11 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc        # Stop recording
 
         sleep 1
-        sudo kill -STOP $(pgrep -f 'FactoryGameSteam-Win64-Shipping.exe') # Pause the game
+        sudo kill -STOP $(pgrep -f "${GAME_EXEC}") # Pause the game
 
         sudo chmod -R 777 /tmp/mangohud_logs/
         rm -rf /tmp/mangohud_logs/*summary.csv
-        mv /tmp/mangohud_logs/FactoryGameSteam-Win64-Shipping_*.csv /tmp/mangohud_logs/$run_filename
+        mv /tmp/mangohud_logs/${GAME_EXEC%.exe}_*.csv /tmp/mangohud_logs/$run_filename
         ######################################################
 
         # Kill background load command
