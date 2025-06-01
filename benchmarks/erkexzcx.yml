@@ -1,4 +1,4 @@
-camera_spin_duration: 3 # In seconds
+camera_spin_duration: 10 # In seconds
 
 jobs:
   - reset_to: origin/main
