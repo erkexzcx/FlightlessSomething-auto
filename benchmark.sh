@@ -128,7 +128,8 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sleep 1
         sudo kill -STOP $(pgrep -f "${GAME_EXEC}") # Pause the game
 
-        # Mangohud changes permissions? Let's reset them after each benchmark:
+        # Mangohud changes permissions of the dir, which causes sequential benchmark not to
+        # generate a CSV file, therefore script fails. This is needed after each run.
         sudo chmod -R 777 "${BENCHMARKS_DIR}"
 
         sudo rm -rf ${BENCHMARKS_DIR}/*summary.csv
