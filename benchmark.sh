@@ -39,11 +39,6 @@ sudo rm -f /tmp/dotool-pipe
 sudo -u "${GAME_USER}" XDG_RUNTIME_DIR="/run/user/$(id -u ${GAME_USER})" systemctl --user start dotoold.service
 sudo chown $USER /tmp/dotool-pipe
 
-# Cleanup if any previous logs exist
-sudo mkdir -p "${BENCHMARKS_DIR}"
-sudo rm -rf "${BENCHMARKS_DIR}/*"
-sudo chmod -R 777 "${BENCHMARKS_DIR}"
-
 # Ensure configuration of Mangohud is correct
 MANGOHUD_CONF="/home/${GAME_USER}/.config/MangoHud/MangoHud.conf"
 sudo -u "${GAME_USER}" sed -i "s|^output_folder=.*|output_folder=${BENCHMARKS_DIR}|" "$MANGOHUD_CONF"
@@ -51,6 +46,11 @@ sudo -u "${GAME_USER}" sed -i "s/^log_duration=.*/log_duration=9999/" "$MANGOHUD
 sudo -u "${GAME_USER}" sed -i "s/^autostart_log=.*/autostart_log=0/" "$MANGOHUD_CONF"
 sudo -u "${GAME_USER}" sed -i "s/^log_interval=.*/log_interval=0/" "$MANGOHUD_CONF"
 sudo -u "${GAME_USER}" sed -i "s/^toggle_logging=.*/toggle_logging=Shift_L+F2/" "$MANGOHUD_CONF"
+
+# Cleanup if any previous logs exist
+sudo mkdir -p "${BENCHMARKS_DIR}"
+sudo rm -rf "${BENCHMARKS_DIR}/*"
+sudo chmod -R 777 "${BENCHMARKS_DIR}"
 
 # Remove/Disable any scx scheduler in case it's still running
 sudo systemctl disable --now scx.service || true
