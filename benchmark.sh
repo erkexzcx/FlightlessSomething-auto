@@ -28,7 +28,7 @@ fi
 pgrep -f "${GAME_EXEC}" > /dev/null
 
 # Setup/reset dotool pipe (session/socket), so commands work instantly
-sudo pkill -f "dotool"
+sudo pkill -f "dotool" || true
 sudo rm -f /tmp/dotool-pipe
 sudo -u "${GAME_USER}" XDG_RUNTIME_DIR="/run/user/$(id -u ${GAME_USER})" systemctl --user start dotoold.service
 sudo chown $USER /tmp/dotool-pipe
@@ -37,6 +37,10 @@ sudo chown $USER /tmp/dotool-pipe
 sudo mkdir -p "${BENCHMARKS_DIR}"
 sudo rm -rf "${BENCHMARKS_DIR}/*"
 sudo chmod -R 777 "${BENCHMARKS_DIR}"
+
+# Remove/Disable any scx scheduler in case it's still running
+sudo systemctl disable --now scx.service || true
+sudo pkill -f "scx" || true
 
 # Clone the repository
 git config --global --add safe.directory "${SCX_DIR}"
