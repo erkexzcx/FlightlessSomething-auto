@@ -123,9 +123,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         ######################################################
         # Record benchmark data
         sudo kill -CONT $(pgrep -f "${GAME_EXEC}") # Resume the game
-        start_time=$(date +%s)
 
         sleep 1
+        start_time=$(date +%s)
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Start recording
 
         # Rotate camera in all directions for $SPIN_DURATION duration
@@ -138,7 +138,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
         sleep 1
-        
+
         sudo kill -STOP $(pgrep -f "${GAME_EXEC}") # Pause the game
 
         # Mangohud changes permissions of the dir, which causes sequential benchmark not to
