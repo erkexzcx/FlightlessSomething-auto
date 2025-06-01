@@ -49,7 +49,7 @@ sudo -u "${GAME_USER}" sed -i "s/^toggle_logging=.*/toggle_logging=Shift_L+F2/" 
 
 # Cleanup if any previous logs exist
 sudo mkdir -p "${BENCHMARKS_DIR}"
-sudo rm -rf "${BENCHMARKS_DIR}/*"
+sudo rm -rf "${BENCHMARKS_DIR}"/*
 sudo chmod -R 777 "${BENCHMARKS_DIR}"
 
 # Remove/Disable any scx scheduler in case it's still running
