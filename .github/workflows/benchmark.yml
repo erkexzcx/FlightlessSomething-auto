@@ -10,12 +10,12 @@ on:
         default: 'all_idle.yml'
         type: choice
         options:
-          - all_busy.yml
-          - erkexzcx.yml
           - all_idle.yml
-          - arighi1.yml
-          - arighi2.yml
-          - last_commits.yml
+          - all_busy.yml
+          - dev.yml
+          - bpfland_vs_bpfland-next.yml
+          - bpfland_vs_bpfland-next-load.yml
+          - last_5_commits.yml
           - specific_commits.yml
 
 jobs:
