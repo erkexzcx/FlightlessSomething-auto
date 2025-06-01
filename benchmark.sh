@@ -98,7 +98,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Execute the build command
     eval "$build_cmd"
 
-    # Wake up the OS (e.g screen is black right now and mangohud record shortcut wouldn't be picked otherwise)
+    # Above build command might have been long, or for whatever reason the device has gone to sleep.
+    # Without waking it up first, mangohud record shortcut might not get picked up.
+    # This command acts as a wake-up call.
     echo mousemove 100 0 | dotoolc
 
     # Iterate over each run
