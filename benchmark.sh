@@ -1,59 +1,58 @@
 #!/bin/bash
-
-# Set the game executable filename here
-GAME_EXEC="FactoryGameSteam-Win64-Shipping.exe"
-
-# Exit immediately on error
 set -e
 
-# Check if yq is installed
-if ! command -v yq &> /dev/null; then
-    echo "yq could not be found. Please install yq."
-    exit 1
-fi
+# Check if required packages are installed
+for cmd in yq dotoolc git; do
+    if ! command -v "$cmd" &> /dev/null; then
+        echo "$cmd could not be found. Please install $cmd."
+        exit 1
+    fi
+done
 
-# Check if dotoolc command exists
-if ! command -v dotoolc &> /dev/null; then
-    echo "dotool could not be found. Please install dotool."
-    exit 1
-fi
+# Check if required environment variables are set
+for var in GAME_EXEC SCX_DIR CARGO_TARGET_DIR BENCHMARKS_DIR GAME_USER; do
+    if [ -z "${!var}" ]; then
+        echo "Environment variable $var is not set. Please set it before running the script."
+        exit 1
+    fi
+done
 
 # Path to the benchmark yml file
 BENCHMARK_FILE=$1
-
 if [ -z "$BENCHMARK_FILE" ]; then
     echo "Usage: $0 <path_to_benchmark.yml>"
     exit 1
 fi
 
-# Ensure we have needed permissions
-sudo chown $USER /tmp/dotool-pipe
-
-# Ensure cleanup is done
-sudo rm -rf /tmp/mangohud_logs
-sudo mkdir -p /tmp/mangohud_logs
-sudo chmod -R 777 /tmp/mangohud_logs/
-
 # Ensure game is running
 pgrep -f "${GAME_EXEC}" > /dev/null
+
+# Setup/reset dotool pipe (session/socket), so commands work instantly
+sudo kill -CONT $(pgrep -f "dotool")
+sudo rm -f /tmp/dotool-pipe
+sudo -u "${GAME_USER}" XDG_RUNTIME_DIR="/run/user/$(id -u deck)" systemctl --user start dotoold.service
+sudo chown $USER /tmp/dotool-pipe
+
+# Cleanup if any previous logs exist
+sudo mkdir -p "${BENCHMARKS_DIR}"
+sudo rm -rf "${BENCHMARKS_DIR}/*"
+sudo chmod -R 777 "${BENCHMARKS_DIR}"
+
+# Fix git behavior?
+
+
+# Clone the repository
+git config --global --add safe.directory "${SCX_DIR}"
+git clone https://github.com/sched-ext/scx.git "${SCX_DIR}" || true
+
+# Ensure scx build target dir exists
+mkdir -p "$CARGO_TARGET_DIR"
 
 # Extract some root variables from the benchmark yml file
 SPIN_DURATION=$(yq -r '.camera_spin_duration' "$BENCHMARK_FILE")
 
 # Background load var
 BACKGROUND_LOAD=$(yq -r '.background_load' "$BENCHMARK_FILE")
-
-# Clone the repository
-git clone https://github.com/sched-ext/scx.git /tmp/scx || true
-
-# Create scx build target dir
-# This means target is shared between builds (different schedulers, different branches)
-# so dependencies are not built multiple times and time is saved...
-export CARGO_TARGET_DIR=/tmp/scx_cargo_build_target
-mkdir -p "$CARGO_TARGET_DIR"
-
-# Zoom out max + it wakes device if it's kind of asleep
-echo keydown pagedown | dotoolc && sleep 5 && echo keyup pagedown | dotoolc
 
 # Read the benchmark.yml file and process each entry
 yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
@@ -63,10 +62,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     build_cmd=$(echo "$benchmark" | yq -r '.build.cmd')
 
     # Change to the temporary directory
-    cd "/tmp/scx"
-
-    # Fix git behavior?
-    git config --global --add safe.directory /tmp/scx
+    cd "${SCX_DIR}"
 
     # Handle PRs differently
     if [[ "$resetto" =~ ^pr/[0-9]+$ ]]; then
@@ -131,9 +127,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sleep 1
         sudo kill -STOP $(pgrep -f "${GAME_EXEC}") # Pause the game
 
-        sudo chmod -R 777 /tmp/mangohud_logs/
-        rm -rf /tmp/mangohud_logs/*summary.csv
-        mv /tmp/mangohud_logs/${GAME_EXEC%.exe}_*.csv /tmp/mangohud_logs/$run_filename
+        sudo chmod -R 777 "${BENCHMARKS_DIR}"
+        rm -rf ${BENCHMARKS_DIR}/*summary.csv
+        mv ${BENCHMARKS_DIR}/${GAME_EXEC%.exe}_*.csv ${BENCHMARKS_DIR}/$run_filename
         ######################################################
 
         # Kill background load command

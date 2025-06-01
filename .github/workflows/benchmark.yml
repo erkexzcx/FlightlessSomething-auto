@@ -1,4 +1,4 @@
-name: Benchmark Satisfactory
+name: Benchmark
 
 on:
   workflow_dispatch:
@@ -16,44 +16,23 @@ on:
           - arighi2.yml
           - last_commits.yml
           - specific_commits.yml
-      description:
-        description: 'Additional comment for this benchmark'
-        required: true
-        default: 'Manually triggered benchmark'
-      noupload:
-        description: "(Advanced) Check to disable auto upload"
-        type: choice
-        default: 'false'
-        options:
-          - 'false'
-          - 'true'
 
 jobs:
   benchmark:
-    name: Satisfactory benchmark, ${{ github.event.inputs.benchmark_file }}, ${{ github.event.inputs.description }}
     runs-on: [self-hosted, Linux, X64, steam-deck]
     steps:
-      - name: Download this repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Build and run benchmark
-        run: chmod +x benchmark.sh && ./benchmark.sh "benchmarks/${{ github.event.inputs.benchmark_file }}"
-
-      - name: Show recorded benchmark files
+      - name: Perform benchmark
         run: |
-          sudo chmod 777 /tmp/mangohud_logs/*
-          ls -l /tmp/mangohud_logs/*
+          source env.sh
+          chmod +x benchmark.sh
+          ./benchmark.sh "benchmarks/${{ github.event.inputs.benchmark_file }}"
 
       - name: Upload benchmark to FlightlessSomething auto
-        if: ${{ inputs.noupload == 'false' }}
         run: |
-          JOBURL="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          source env.sh
           chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }} "$JOBURL" "${{ github.event.inputs.description }}"
-
-      - name: Copy benchmark to persistent storage
-        if: ${{ inputs.noupload == 'true' }}
-        run: |
-          ts=$(date +%s)
-          echo "/home/deck/persistent_runs/$ts"
-          sudo mkdir -p /home/deck/persistent_runs/
-          sudo cp -r /tmp/mangohud_logs/*.csv "/home/deck/persistent_runs/$ts/"
+        env:
+          MYSESSION: ${{ secrets.MYSESSION }}
+          JOB_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}

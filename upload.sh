@@ -1,58 +1,42 @@
 #!/bin/bash
+set -e
 
-# Check if the correct number of arguments is provided
-if [ "$#" -ne 3 ]; then
-  echo "Usage: $0 <mysession_value> <runjob_url> <additional_description>"
-  exit 1
-fi
-
-# Assign argument to variable
-MYSESSION=$1
-JOBURL=$2
-DESCRIPTION=$3
-
-# Some hardcoded variables
-DIRECTORY="/tmp/mangohud_logs"
-BASE_URL="https://flightlesssomething-auto.ambrosia.one"
-
-# Check if the directory exists
-if [ ! -d "$DIRECTORY" ]; then
-  echo "Error: Directory $DIRECTORY does not exist."
-  exit 1
-fi
+# Check if required environment variables are set
+for var in BENCHMARKS_DIR GAME_NAME JOB_URL MYSESSION; do
+    if [ -z "${!var}" ]; then
+        echo "Environment variable $var is not set. Please set it before running the script."
+        exit 1
+    fi
+done
 
 # Check if there are any CSV files in the directory
-csv_files=("$DIRECTORY"/*.csv)
+csv_files=("${BENCHMARKS_DIR}"/*.csv)
 if [ ! -e "${csv_files[0]}" ]; then
-  echo "Error: No CSV files found in directory $DIRECTORY."
+  echo "Error: No CSV files found in directory ${BENCHMARKS_DIR}."
   exit 1
 fi
 
-# Generate a Unix timestamp
-TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+# Build vars for request
 
-# Debug information
-echo "title: Automated Satisfactory benchmark"
-echo "description: Automated Satisfactory benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
+title="Automated ${GAME_NAME} benchmark"
+description="Details: $JOB_URL"
 
 # Start constructing the curl command
 curl_command=(
   curl -i "$BASE_URL/benchmark"
   -X POST
   -H "Cookie: mysession=$MYSESSION"
-  -F "title=Automated Satisfactory benchmark"
-  -F "description=Automated Satisfactory benchmark, on Steam Deck LCD 512GB, at $TIMESTAMP. For more information, see $JOBURL. $DESCRIPTION"
+  -F "title=$title"
+  -F "description=$description"
 )
 
 # Loop over all CSV files in the specified directory
-for file in "$DIRECTORY"/*.csv; do
+for file in "${BENCHMARKS_DIR}"/*.csv; do
   curl_command+=(-F "files=@$file")
-  echo "Adding file: $file"
 done
 
 # Execute the constructed curl command and capture the response
 response=$("${curl_command[@]}")
-
 echo $response
 
 # Check if the response contains a 303 status code and a Location header
