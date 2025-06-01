@@ -126,7 +126,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         sleep 1
         start_time=$(date +%s)
-        echo keydown shift+f2 | dotoolc && sleep 0.5 && echo keyup shift+f2 | dotoolc # Start recording
+        echo keydown shift+f2 | dotoolc && sleep 0.1 && echo keyup shift+f2 | dotoolc # Start recording
 
         # Rotate camera in all directions for $SPIN_DURATION duration
         while (( $(date +%s) - start_time < SPIN_DURATION )); do
@@ -136,7 +136,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
             done
         done
 
-        echo keydown shift+f2 | dotoolc && sleep 0.5 && echo keyup shift+f2 | dotoolc # Stop recording
+        echo keydown shift+f2 | dotoolc && sleep 0.1 && echo keyup shift+f2 | dotoolc # Stop recording
         sleep 1
 
         sudo kill -STOP $(pgrep -f "${GAME_EXEC}") # Pause the game
