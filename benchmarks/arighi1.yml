@@ -1,21 +1,21 @@
 camera_spin_duration: 600 # In seconds
 
-#background_load: stress -c 8
-
 jobs:
-
-  - reset_to: origin/bpfland-next
-    build:
-      dir: scheds/rust/scx_bpfland/
-      cmd: cargo build --release
-    runs:
-      - filename: bpfland-next.csv
-        scheduler: release/scx_bpfland
 
   - reset_to: origin/main
     build:
       dir: scheds/rust/scx_bpfland/
       cmd: cargo build --release
     runs:
-      - filename: bpfland-main.csv
+      - filename: bpfland-main-defaults.csv
         scheduler: release/scx_bpfland
+
+  - reset_to: origin/bpfland-next
+    build:
+      dir: scheds/rust/scx_bpfland/
+      cmd: cargo build --release
+    runs:
+      - filename: bpfland-next-defaults.csv
+        scheduler: release/scx_bpfland
+      - filename: bpfland-next-performance.csv
+        scheduler: release/scx_bpfland -m performance
