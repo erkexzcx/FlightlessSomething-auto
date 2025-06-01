@@ -19,7 +19,7 @@ fi
 # Build vars for request
 
 title="Automated benchmark: ${GAME_NAME}"
-description="Details: $JOB_URL"
+description="${JOB_URL}"
 
 # Start constructing the curl command
 curl_command=(
