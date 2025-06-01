@@ -17,6 +17,12 @@ for var in GAME_EXEC SCX_DIR CARGO_TARGET_DIR BENCHMARKS_DIR GAME_USER; do
     fi
 done
 
+# Exit if ${GAME_USER} is root
+if [ "$GAME_USER" = "root" ]; then
+    echo "Game cannot be executed under root user."
+    exit 1
+fi
+
 # Path to the benchmark yml file
 BENCHMARK_FILE=$1
 if [ -z "$BENCHMARK_FILE" ]; then
@@ -37,6 +43,14 @@ sudo chown $USER /tmp/dotool-pipe
 sudo mkdir -p "${BENCHMARKS_DIR}"
 sudo rm -rf "${BENCHMARKS_DIR}/*"
 sudo chmod -R 777 "${BENCHMARKS_DIR}"
+
+# Ensure configuration of Mangohud is correct
+MANGOHUD_CONF="/home/${GAME_USER}/.config/MangoHud/MangoHud.conf"
+sudo -u "${GAME_USER}" sed -i "s|^output_folder=.*|output_folder=${BENCHMARKS_DIR}|" "$MANGOHUD_CONF"
+sudo -u "${GAME_USER}" sed -i "s/^log_duration=.*/log_duration=9999/" "$MANGOHUD_CONF"
+sudo -u "${GAME_USER}" sed -i "s/^autostart_log=.*/autostart_log=0/" "$MANGOHUD_CONF"
+sudo -u "${GAME_USER}" sed -i "s/^log_interval=.*/log_interval=0/" "$MANGOHUD_CONF"
+sudo -u "${GAME_USER}" sed -i "s/^toggle_logging=.*/toggle_logging=Shift_L+F2/" "$MANGOHUD_CONF"
 
 # Remove/Disable any scx scheduler in case it's still running
 sudo systemctl disable --now scx.service || true
@@ -110,8 +124,6 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         # Record benchmark data
         sudo kill -CONT $(pgrep -f "${GAME_EXEC}") # Resume the game
         sleep 1
-
-        start_time=$(date +%s)
 
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc        # Start recording
 
