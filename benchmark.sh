@@ -48,9 +48,9 @@ sudo -u "${GAME_USER}" sed -i "s/^log_interval=.*/log_interval=0/" "$MANGOHUD_CO
 sudo -u "${GAME_USER}" sed -i "s/^toggle_logging=.*/toggle_logging=Shift_L+F2/" "$MANGOHUD_CONF"
 
 # Cleanup if any previous logs exist
-sudo mkdir -p "${BENCHMARKS_DIR}"
-sudo rm -rf "${BENCHMARKS_DIR}"/*
-sudo chmod -R 777 "${BENCHMARKS_DIR}"
+sudo mkdir -p ${BENCHMARKS_DIR}
+sudo rm -rf ${BENCHMARKS_DIR}/*
+sudo chmod -R 777 ${BENCHMARKS_DIR}
 
 # Remove/Disable any scx scheduler in case it's still running
 sudo systemctl disable --now scx.service || true
