@@ -1,4 +1,5 @@
 name: Benchmark
+run-name: Benchmark ${{ github.event.inputs.benchmark_file }} by @${{ github.actor }}
 
 on:
   workflow_dispatch:
