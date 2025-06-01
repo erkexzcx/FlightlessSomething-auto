@@ -102,13 +102,13 @@ systemctl --user start dotoold.service
 sudo chown $USER /tmp/dotool-pipe
 
 # Resume game
-sudo kill -CONT $(pgrep -f "${GAME_EXEC}")
+sudo kill -CONT $(pgrep -f "$GAME_EXEC")
 
 # Start/Stop MangoHud recording
 echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc
 
 # Freeze game
-sudo kill -STOP $(pgrep -f "${GAME_EXEC}")
+sudo kill -STOP $(pgrep -f "$GAME_EXEC")
 ```
 
 Also, on each boot, from `deck` user:
