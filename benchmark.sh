@@ -124,9 +124,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sleep 1
         sudo kill -STOP $(pgrep -f "${GAME_EXEC}") # Pause the game
 
-        sudo chmod -R 777 "${BENCHMARKS_DIR}"
-        rm -rf ${BENCHMARKS_DIR}/*summary.csv
-        mv ${BENCHMARKS_DIR}/${GAME_EXEC%.exe}_*.csv ${BENCHMARKS_DIR}/$run_filename
+        ls -l "${BENCHMARKS_DIR}"
+        sudo rm -rf ${BENCHMARKS_DIR}/*summary.csv
+        sudo mv ${BENCHMARKS_DIR}/${GAME_EXEC%.exe}_*.csv ${BENCHMARKS_DIR}/$run_filename
         ######################################################
 
         # Kill background load command
