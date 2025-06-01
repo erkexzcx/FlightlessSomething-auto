@@ -2,7 +2,7 @@
 set -e
 
 # Check if required packages are installed
-for cmd in yq dotoolc git; do
+for cmd in yq dotoolc git mangohud; do
     if ! command -v "$cmd" &> /dev/null; then
         echo "$cmd could not be found. Please install $cmd."
         exit 1
