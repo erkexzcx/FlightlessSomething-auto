@@ -130,7 +130,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         sudo chmod -R 777 /tmp/mangohud_logs/
         rm -rf /tmp/mangohud_logs/*summary.csv
-        mv /tmp/mangohud_logs/FactoryGameSteam_*.csv /tmp/mangohud_logs/$run_filename
+        mv /tmp/mangohud_logs/FactoryGameSteam-Win64-Shipping_*.csv /tmp/mangohud_logs/$run_filename
         ######################################################
 
         # Kill background load command
