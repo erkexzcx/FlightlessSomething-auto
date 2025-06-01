@@ -28,7 +28,7 @@ fi
 pgrep -f "${GAME_EXEC}" > /dev/null
 
 # Setup/reset dotool pipe (session/socket), so commands work instantly
-sudo kill -CONT $(pgrep -f "dotool")
+sudo pkill -f "dotool"
 sudo rm -f /tmp/dotool-pipe
 sudo -u "${GAME_USER}" XDG_RUNTIME_DIR="/run/user/$(id -u deck)" systemctl --user start dotoold.service
 sudo chown $USER /tmp/dotool-pipe
