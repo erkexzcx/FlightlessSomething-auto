@@ -20,19 +20,39 @@ on:
 jobs:
   benchmark:
     runs-on: [self-hosted, Linux, X64, steam-deck]
+
+    env:
+      # Get using: ps aux | grep 'steamapps\\common'
+      GAME_EXEC: FactoryGameSteam-Win64-Shipping.exe
+
+      # Where to pull & compile SCX repo. Works as cache, so use persistent storage
+      SCX_DIR: /var/lib/github-actions/scx
+
+      # Where to compile SCX artifacts. Works as cache, so use persistent storage
+      CARGO_TARGET_DIR: /var/lib/github-actions/scx-cargo-target
+
+      # Where mangohud stores its benchmark data. Script will mess with permissions, so use
+      # a dedicated folder and NOT anything like home directory.
+      BENCHMARKS_DIR: /tmp/mangohud_logs
+
+      # User that runs the game. Cannot be root user.
+      GAME_USER: deck
+
+      # Game's name (used for benchmark title when uploading)
+      GAME_NAME: Satisfactory
+
+      # Target URL for uploading benchmark data
+      BASE_URL: https://flightlesssomething-auto.ambrosia.one
+
+      # Do not edit these
+      MYSESSION: ${{ secrets.MYSESSION }}
+      JOB_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Perform benchmark
-        run: |
-          source env.sh
-          chmod +x benchmark.sh
-          ./benchmark.sh "benchmarks/${{ github.event.inputs.benchmark_file }}"
+        run: bash benchmark.sh "benchmarks/${{ github.event.inputs.benchmark_file }}"
 
       - name: Upload benchmark to FlightlessSomething auto
-        run: |
-          source env.sh
-          chmod +x upload.sh && ./upload.sh ${{ secrets.MYSESSION }} "$JOBURL" "${{ github.event.inputs.description }}"
-        env:
-          MYSESSION: ${{ secrets.MYSESSION }}
-          JOB_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: bash upload.sh
