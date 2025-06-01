@@ -52,3 +52,11 @@ jobs:
     runs:
       - filename: p2dq-defaults.csv
         scheduler: release/scx_p2dq
+
+  - reset_to: origin/main
+    build:
+      dir: scheds/rust/scx_wd40/
+      cmd: cargo build --release
+    runs:
+      - filename: p2dq-defaults.csv
+        scheduler: release/scx_wd40
