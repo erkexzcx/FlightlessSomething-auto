@@ -132,11 +132,10 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sudo kill -CONT $(pgrep -f "${GAME_EXEC}") # Resume the game
 
         sleep 1
-        start_time=$(date +%s)
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Start recording
 
         # Rotate camera in all directions for $SPIN_DURATION duration
-        while (( $(date +%s) - start_time < SPIN_DURATION )); do
+        for ((i = 0; i < SPIN_DURATION; i++)); do
             # for ((i = 0; i < 500; i++)); do
             #     echo mousemove 100 0 | dotoolc
             #     sleep 0.02
