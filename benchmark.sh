@@ -103,7 +103,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # This command acts as a wake-up call.
     #
     #echo mousemove 100 0 | dotoolc
-    echo "key numlock" | dotoolc
+    echo "key scrolllock" | dotoolc
 
     # Iterate over each run
     echo "$benchmark" | yq -c '.runs[]' | while read -r run; do
@@ -141,7 +141,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
             #     sleep 0.02
             # done
             
-            echo "key numlock" | dotoolc
+            echo "key scrolllock" | dotoolc
             sleep 1
         done
 
