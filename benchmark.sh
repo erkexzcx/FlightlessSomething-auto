@@ -101,7 +101,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Above build command might have been long, or for whatever reason the device has gone to sleep.
     # Without waking it up first, mangohud record shortcut might not get picked up.
     # This command acts as a wake-up call.
-    echo mousemove 100 0 | dotoolc
+    #
+    #echo mousemove 100 0 | dotoolc
+    echo "key numlock" | dotoolc
 
     # Iterate over each run
     echo "$benchmark" | yq -c '.runs[]' | while read -r run; do
@@ -135,10 +137,13 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         # Rotate camera in all directions for $SPIN_DURATION duration
         while (( $(date +%s) - start_time < SPIN_DURATION )); do
-            for ((i = 0; i < 500; i++)); do
-                echo mousemove 100 0 | dotoolc
-                sleep 0.02
-            done
+            # for ((i = 0; i < 500; i++)); do
+            #     echo mousemove 100 0 | dotoolc
+            #     sleep 0.02
+            # done
+            
+            echo "key numlock" | dotoolc
+            sleep 1
         done
 
         echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
