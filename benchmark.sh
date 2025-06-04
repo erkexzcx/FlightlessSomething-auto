@@ -2,7 +2,7 @@
 set -e
 
 # Check if required packages are installed
-for cmd in yq dotoolc git mangohud; do
+for cmd in yq ydotool git mangohud; do
     if ! command -v "$cmd" &> /dev/null; then
         echo "$cmd could not be found. Please install $cmd."
         exit 1
@@ -33,11 +33,12 @@ fi
 # Ensure game is running
 pgrep -f "${GAME_EXEC}" > /dev/null
 
-# Setup/reset dotool pipe (session/socket), so commands work instantly
-sudo pkill -f "dotool" || true
-sudo rm -f /tmp/dotool-pipe
-sudo -u "${GAME_USER}" XDG_RUNTIME_DIR="/run/user/$(id -u ${GAME_USER})" systemctl --user start dotoold.service
-sudo chown $USER /tmp/dotool-pipe
+# Setup/reset ydotool socket
+export YDOTOOL_SOCKET="/tmp/ydotool-socket"
+sudo pkill -f "ydotoold" || true
+sudo rm -f /tmp/ydotool-socket
+sudo -u "${GAME_USER}" XDG_RUNTIME_DIR="/run/user/$(id -u ${GAME_USER})" systemctl --user start ydotool.service
+sudo chown $USER /tmp/ydotool-socket
 
 # Ensure configuration of Mangohud is correct
 MANGOHUD_CONF="/home/${GAME_USER}/.config/MangoHud/MangoHud.conf"
@@ -102,8 +103,7 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
     # Without waking it up first, mangohud record shortcut might not get picked up.
     # This command acts as a wake-up call.
     #
-    #echo mousemove 100 0 | dotoolc
-    echo "key scrolllock" | dotoolc
+    ydotool mousemove -x 1 -y 0
 
     # Iterate over each run
     echo "$benchmark" | yq -c '.runs[]' | while read -r run; do
@@ -132,20 +132,15 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
         sudo kill -CONT $(pgrep -f "${GAME_EXEC}") # Resume the game
 
         sleep 1
-        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Start recording
+        ydotool key --key-delay=200 42:1 60:1 60:0 42:0 # Start recording
 
         # Rotate camera in all directions for $SPIN_DURATION duration
         for ((i = 0; i < SPIN_DURATION; i++)); do
-            # for ((i = 0; i < 500; i++)); do
-            #     echo mousemove 100 0 | dotoolc
-            #     sleep 0.02
-            # done
-            
-            echo "key scrolllock" | dotoolc
+            ydotool mousemove -x 300 -y 0
             sleep 1
         done
 
-        echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc # Stop recording
+        ydotool key --key-delay=200 42:1 60:1 60:0 42:0 # Stop recording
         sleep 1
 
         sudo kill -STOP $(pgrep -f "${GAME_EXEC}") # Pause the game
