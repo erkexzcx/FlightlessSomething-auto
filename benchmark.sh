@@ -38,6 +38,7 @@ export YDOTOOL_SOCKET="/tmp/ydotool_socket"
 sudo pkill -f "ydotoold" || true
 sudo rm -f $YDOTOOL_SOCKET
 sudo -u "${GAME_USER}" XDG_RUNTIME_DIR="/run/user/$(id -u ${GAME_USER})" ydotoold -p $YDOTOOL_SOCKET &
+sleep 1 # Give ydotoold some time to start
 sudo chown $USER $YDOTOOL_SOCKET
 
 # Ensure configuration of Mangohud is correct
