@@ -137,9 +137,9 @@ yq -c '.jobs[]' "$BENCHMARK_FILE" | while read -r benchmark; do
 
         # Rotate camera in all directions for $SPIN_DURATION duration
         for ((i = 0; i < SPIN_DURATION; i++)); do
-            for ((j = 0; j < 10; j++)); do
-                ydotool mousemove -x 10 -y 0
-                sleep 0.1
+            for ((j = 0; j < 1000; j++)); do
+                ydotool mousemove -x 1 -y 0
+                sleep 0.001
             done
         done
 
