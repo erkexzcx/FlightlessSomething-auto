@@ -57,3 +57,11 @@ jobs:
 
       - name: Upload results
         run: bash upload.sh
+        
+      - name: Upload benchmark logs as artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmark-logs
+          path: ${{ env.BENCHMARKS_DIR }}
+          retention-days: 1
