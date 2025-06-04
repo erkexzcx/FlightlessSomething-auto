@@ -99,8 +99,9 @@ Now the conditions:
 
 export GAME_EXEC="FactoryGameSteam-Win64-Shipping.exe"
 export YDOTOOL_SOCKET="/tmp/ydotool_socket"
+sudo pkill -f "ydotoold" || true
+sudo rm -f $YDOTOOL_SOCKET
 ydotoold -p $YDOTOOL_SOCKET &
-sudo chown $USER $YDOTOOL_SOCKET
 
 # Resume game
 sudo kill -CONT $(pgrep -f "$GAME_EXEC")
