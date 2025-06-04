@@ -33,13 +33,12 @@ fi
 # Ensure game is running
 pgrep -f "${GAME_EXEC}" > /dev/null
 
-# Setup/reset ydotool socket
-GAME_XDG_RUNTIME_DIR="/run/user/$(id -u ${GAME_USER})"
+# Setup ydotool socket
+export YDOTOOL_SOCKET="/tmp/ydotool_socket"
 sudo pkill -f "ydotoold" || true
-sudo rm -f "${GAME_XDG_RUNTIME_DIR}/.ydotool_socket"
-sudo -u "${GAME_USER}" XDG_RUNTIME_DIR="${GAME_XDG_RUNTIME_DIR}" systemctl --user start ydotool.service
-sudo chown $USER "${GAME_XDG_RUNTIME_DIR}/.ydotool_socket"
-export YDOTOOL_SOCKET="${GAME_XDG_RUNTIME_DIR}/.ydotool_socket"
+sudo rm -f $YDOTOOL_SOCKET
+sudo -u "${GAME_USER}" XDG_RUNTIME_DIR="/run/user/$(id -u ${GAME_USER})" ydotoold -p $YDOTOOL_SOCKET &
+sudo chown $USER $YDOTOOL_SOCKET
 
 # Ensure configuration of Mangohud is correct
 MANGOHUD_CONF="/home/${GAME_USER}/.config/MangoHud/MangoHud.conf"
