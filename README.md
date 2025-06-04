@@ -98,20 +98,15 @@ Now the conditions:
 # All commands as regular user...
 
 export GAME_EXEC="FactoryGameSteam-Win64-Shipping.exe"
-systemctl --user start dotoold.service
-sudo chown $USER /tmp/dotool-pipe
+systemctl --user start ydotoold.service
+sudo chown $USER "/run/user/$(id -u $USER)/.ydotool_socket"
 
 # Resume game
 sudo kill -CONT $(pgrep -f "$GAME_EXEC")
 
 # Start/Stop MangoHud recording
-echo keydown shift+f2 | dotoolc && sleep 0.2 && echo keyup shift+f2 | dotoolc
+ydotool key --key-delay=200 42:1 60:1 60:0 42:0
 
 # Freeze game
 sudo kill -STOP $(pgrep -f "$GAME_EXEC")
-```
-
-Also, on each boot, from `deck` user:
-```bash
-systemctl --user start dotoold.service
 ```
