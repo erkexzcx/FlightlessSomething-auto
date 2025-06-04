@@ -98,7 +98,7 @@ Now the conditions:
 # All commands as regular user...
 
 export GAME_EXEC="FactoryGameSteam-Win64-Shipping.exe"
-systemctl --user start ydotoold.service
+systemctl --user start ydotool.service
 sudo chown $USER "/run/user/$(id -u $USER)/.ydotool_socket"
 
 # Resume game
